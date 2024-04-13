@@ -1,0 +1,14 @@
+{
+  "name": "edu-uploader",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./public/style/app.css --watch"
+  },
+  "author": "MohamadAmin Gharibi",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
