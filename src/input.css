@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: "ir-sans-thin";
+        src: url("../fonts/IRANSansXThin.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-ultra-light";
+        src: url("../fonts/IRANSansXUltraLight.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-light";
+        src: url("../fonts/IRANSansXLight.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-regular";
+        src: url("../fonts/IRANSansXRegular.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-medium";
+        src: url("../fonts/IRANSansXMedium.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-demi-bold";
+        src: url("../fonts/IRANSansXDemiBold.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-bold";
+        src: url("../fonts/IRANSansXBold.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-extra-bold";
+        src: url("../fonts/IRANSansXExtraBold.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "ir-sans-black";
+        src: url("../fonts/IRANSansXBlack.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    body {
+        @apply font-regular;
+    }
+}
+
+@layer components {
+    .swiper--navigators {
+        @apply absolute top-0 bottom-0 z-10 h-max my-auto bg-white p-3 flex justify-center items-center rounded-full;
+    }
+
+    .swiper-button-next--custom {
+        @apply left-5;
+    }
+
+    .swiper-button-prev--custom {
+        @apply right-5;
+    }
+}
