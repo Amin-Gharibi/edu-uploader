@@ -64,7 +64,7 @@
 
 @layer components {
     .swiper--navigators {
-        @apply absolute top-0 bottom-0 z-10 h-max my-auto bg-white p-3 flex justify-center items-center rounded-full;
+        @apply hidden sm:flex absolute top-0 bottom-0 z-10 h-max my-auto bg-white p-3 justify-center items-center rounded-full;
     }
 
     .swiper-button-next--custom {

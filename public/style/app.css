@@ -677,7 +677,7 @@ body {
   z-index: 10;
   margin-top: auto;
   margin-bottom: auto;
-  display: flex;
+  display: none;
   height: -moz-max-content;
   height: max-content;
   align-items: center;
@@ -686,6 +686,12 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .swiper--navigators {
+    display: flex;
+  }
 }
 
 .swiper-button-next--custom {
@@ -793,6 +799,26 @@ body {
   top: 100%;
 }
 
+.bottom-10 {
+  bottom: 2.5rem;
+}
+
+.right-10 {
+  right: 2.5rem;
+}
+
+.bottom-6 {
+  bottom: 1.5rem;
+}
+
+.right-6 {
+  right: 1.5rem;
+}
+
+.left-1 {
+  left: 0.25rem;
+}
+
 .z-20 {
   z-index: 20;
 }
@@ -873,6 +899,10 @@ body {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[250px\] {
+  height: 250px;
 }
 
 .max-h-0 {
@@ -1110,6 +1140,11 @@ body {
   line-height: 1.75rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1232,6 +1267,14 @@ body {
 }
 
 @media (min-width: 640px) {
+  .sm\:bottom-14 {
+    bottom: 3.5rem;
+  }
+
+  .sm\:right-14 {
+    right: 3.5rem;
+  }
+
   .sm\:inline {
     display: inline;
   }
@@ -1242,6 +1285,14 @@ body {
 
   .sm\:hidden {
     display: none;
+  }
+
+  .sm\:h-\[500px\] {
+    height: 500px;
+  }
+
+  .sm\:h-\[300px\] {
+    height: 300px;
   }
 
   .sm\:rounded-lg {
@@ -1262,9 +1313,40 @@ body {
     padding-top: 0.625rem;
     padding-bottom: 0.625rem;
   }
+
+  .sm\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:bottom-20 {
+    bottom: 5rem;
+  }
+
+  .md\:right-20 {
+    right: 5rem;
+  }
+
+  .md\:h-\[400px\] {
+    height: 400px;
+  }
 }
 
 @media (min-width: 1024px) {
+  .lg\:bottom-20 {
+    bottom: 5rem;
+  }
+
+  .lg\:right-20 {
+    right: 5rem;
+  }
+
+  .lg\:h-\[500px\] {
+    height: 500px;
+  }
+
   .lg\:gap-x-10 {
     -moz-column-gap: 2.5rem;
          column-gap: 2.5rem;
@@ -1272,6 +1354,14 @@ body {
 }
 
 @media (min-width: 1280px) {
+  .xl\:bottom-24 {
+    bottom: 6rem;
+  }
+
+  .xl\:right-40 {
+    right: 10rem;
+  }
+
   .xl\:gap-x-16 {
     -moz-column-gap: 4rem;
          column-gap: 4rem;

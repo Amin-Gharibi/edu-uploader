@@ -21,6 +21,7 @@ const renderPage = async (headerData) => {
 
 	container.innerHTML = `
 		<header class="container max-w-[1200px] w-full py-4 flex justify-between items-center">
+			<!--mobile menu-->
 			<div class="sm:hidden">
 				<button class="toggle-mobile-menu flex justify-center items-center">
 					<svg class="w-8 h-8 text-gray-900">
@@ -69,6 +70,7 @@ const renderPage = async (headerData) => {
 					</div>
 				</div>
 			</div>
+			<!--desktop header-->
     		<div class="flex items-center gap-x-6 lg:gap-x-10 xl:gap-x-16">
     		    <div>
 			    	<a href="${headerData.headerLogo[0].href}">
@@ -122,14 +124,14 @@ const renderPage = async (headerData) => {
 							return `
 								<div class="swiper-slide !max-w-[1540px] mx-auto">
 									<a href="${data.href}">
-										<img src="${BASE_URL}/headerBanners/${data.cover}" alt="${data.title}" class="w-full !h-[500px]">
+										<img src="${BASE_URL}/headerBanners/${data.cover}" alt="${data.title}" class="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px]">
 									</a>
-									<span class="absolute bottom-24 right-40 text-white font-bold text-xl">
+									<span class="absolute bottom-6 right-6 sm:bottom-14 sm:right-14 md:bottom-20 md:right-20 xl:bottom-24 xl:right-40 left-1 text-white font-bold text-lg sm:text-xl">
 										${data.title}
 									</span>
 								</div>
 							`
-						})
+						}).join('')
 					}
     			</div>
     			<div class="swiper--navigators swiper-button-next--custom">
@@ -151,6 +153,9 @@ const renderPage = async (headerData) => {
 		navigation: {
 			nextEl: ".swiper-button-next--custom",
 			prevEl: ".swiper-button-prev--custom"
+		},
+		autoplay: {
+			delay: 3000
 		}
 	})
 
