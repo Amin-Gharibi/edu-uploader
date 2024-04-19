@@ -1,5 +1,6 @@
 import getHeaderData from "./shared/header.js";
 import BASE_URL from "./util/BASE_URL.js";
+import {getLatestNews} from "./funcs/news.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
 	await fetchData()
@@ -8,16 +9,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 const fetchData = async () => {
 	try {
 	// 	fetch data from server
-		const [headerData] = await Promise.all([getHeaderData()])
+		const [headerData, latestNews] = await Promise.all([getHeaderData(), getLatestNews()])
 
-		await renderPage(headerData)
+		await renderPage(headerData, latestNews)
 	} catch (e) {
 		console.log('ERROR HANDLER: ', e)
 	}
 }
 
-const renderPage = async (headerData) => {
+const renderPage = async (headerData, latestNews) => {
 	const container = document.querySelector('#content-container')
+
+	console.log(latestNews)
 
 	container.innerHTML = `
 		<header class="container max-w-[1200px] w-full py-4 flex justify-between items-center">
@@ -145,6 +148,51 @@ const renderPage = async (headerData) => {
     				</svg>
 				</div>
   			</div>
+			<!--latest news and sidebar menu-->
+			<div class="container max-w-[1200px] flex items-start flex-wrap lg:flex-nowrap gap-5 mt-20">
+				<!--latest news section-->
+				<div class="flex-grow w-full pb-5">
+					<h1 class="section--title">
+						آخرین آخبار
+					</h1>
+					<div class="w-full mt-8">
+						${!latestNews.length && `
+							<h2 class="text-center mt-8 font-medium">
+								خبری یافت نشد...!
+							</h2>
+						` || `
+							<div class="flex flex-col gap-y-5">
+								${
+									latestNews.map(news => {
+										return `
+											<div class="w-full overflow-hidden rounded flex gap-x-3 border border-gray-200">
+												<img src="${BASE_URL}/news/${news.cover}" alt="news cover" class="w-36 object-cover">
+												<div class="flex-grow flex flex-col gap-y-3 py-4">
+													<h2 class="font-bold text-xl">
+														${news.title}
+													</h2>
+													<p class="line-clamp-2 flex-grow pl-4">${news.body}</p>
+													<button class="self-end flex items-center ml-2 px-2 text-orange-400 gap-x-2">
+														<span>
+															ادامه مطلب
+														</span>
+														<svg class="w-4 h-4">
+															<use href="#arrow-left"></use>
+														</svg>
+													</button>
+												</div>
+											</div>
+										`
+									}).join('')
+								}
+							</div>
+						`}
+					</div>
+				</div>
+				<aside class="w-96 shrink-0 sticky top-5 h-10 bg-black">
+					
+				</aside>
+			</div>
 		</main>
 	`
 

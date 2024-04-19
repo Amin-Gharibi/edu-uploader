@@ -11,28 +11,35 @@
 </head>
 <body>
 <svg class="hidden">
-    <symbol id="arrow-left" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    <symbol id="arrow-left" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
     </symbol>
 
-    <symbol id="arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    <symbol id="arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
     </symbol>
 
-    <symbol id="arrow-down" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    <symbol id="arrow-down" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
     </symbol>
 
-    <symbol id="bars-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    <symbol id="bars-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
     </symbol>
 
-    <symbol id="user" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+    <symbol id="user" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
     </symbol>
 
-    <symbol id="x-mark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    <symbol id="x-mark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
     </symbol>
 </svg>
 
@@ -42,6 +49,63 @@
         <div class='h-5 w-5 bg-blue-700 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
         <div class='h-5 w-5 bg-blue-700 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
         <div class='h-5 w-5 bg-blue-700 rounded-full animate-bounce'></div>
+    </div>
+
+    <div class="flex flex-col overflow-hidden bg-white dark:bg-darkGray-800 shadow-light dark:shadow-none dark:border border-gray-700 rounded-2xl">
+        <!--article image-->
+        <div class="article--image__container">
+            <img src="" alt="آشنایی اولیه با node js" class="w-full h-full">
+        </div>
+        <!--article content-->
+        <div class="flex flex-col flex-grow gap-y-8 px-5">
+            <!--upper content-->
+            <div class="pt-1.5">
+                <h4 class="font-danaMedium max-h-12 line-clamp-2 text-zinc-700 dark:text-white mb-2.5">
+                    <a href="article-page.html?article=intro-to-nodejs">
+                        آشنایی اولیه با node js
+                    </a>
+                </h4>
+                <p class="h-20 font-thin text-sm line-clamp-4 text-slate-500 dark:text-slate-400">
+                    توی این مقاله قراره با فریمورک جذاب نود جی اس آشنا بشیم
+                </p>
+            </div>
+            <!--lower content-->
+            <div style="margin-top: auto;">
+                <!--author and release date-->
+                <div class="flex items-center flex-wrap gap-2.5 text-xs text-slate-500 dark:text-slate-400 pb-4 border-b border-gray-100 dark:border-gray-700">
+                    <!--author-->
+                    <a href="#" class="flex items-center gap-x-1 hover:text-primary transition-colors">
+                        <svg class="w-4 h-4">
+                            <use href="#user"></use>
+                        </svg>
+                        <span>
+                                        محمدامین غریبی
+                                    </span>
+                    </a>
+                    <!--release date-->
+                    <div class="flex items-center gap-x-1">
+                        <svg class="w-4 h-4">
+                            <use href="#calendar"></use>
+                        </svg>
+                        <span>
+                                        ۱۴۰۲/۱۱/۲۱
+                                    </span>
+                    </div>
+                </div>
+                <!--link to article page-->
+                <div class="flex justify-center items-center py-3.5">
+                    <a href="article-page.html?article=intro-to-nodejs"
+                       class="flex justify-center items-center gap-x-1 font-danaMedium text-zinc-700 dark:text-white group transition-colors">
+                                    <span class="leading-6 group-hover:text-primary transition-colors">
+                                        مطالعه مقاله
+                                    </span>
+                        <svg class="w-6 h-6 group-hover:text-primary transition-colors">
+                            <use href="#arrow-left-circle"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
