@@ -74,4 +74,16 @@
     .swiper-button-prev--custom {
         @apply right-5;
     }
+
+    .mobile-menu--items.active {
+        @apply text-gray-900;
+    }
+
+    .mobile-menu--items.active ul {
+        @apply max-h-max visible opacity-100;
+    }
+
+    .mobile-menu--items.active svg {
+        @apply rotate-180;
+    }
 }
