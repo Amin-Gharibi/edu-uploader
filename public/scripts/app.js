@@ -148,13 +148,13 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 				</div>
   			</div>
 			<!--latest news and sidebar menu-->
-			<div class="container max-w-[1200px] flex items-start flex-wrap lg:flex-nowrap gap-5 mt-20">
+			<div class="container max-w-[1200px] flex items-start flex-wrap md:flex-nowrap gap-5 mt-20 mb-10">
 				<!--latest news section-->
-				<div class="flex-grow w-full pb-5">
+				<div class="flex-grow w-full pr-5 xl:p-0">
 					<h1 class="section--title">
 						آخرین آخبار
 					</h1>
-					<div class="w-full mt-8">
+					<div class="md:max-w-full w-full mt-8">
 						${!latestNews.length && `
 							<h2 class="text-center mt-8 font-medium">
 								خبری یافت نشد...!
@@ -165,14 +165,14 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 									latestNews.map(news => {
 										return `
 											<div class="w-full overflow-hidden rounded flex gap-x-3 border border-gray-200">
-												<img src="${BASE_URL}/news/${news.cover}" alt="news cover" class="w-36 object-cover">
-												<div class="flex-grow flex flex-col gap-y-3 py-4">
-													<h2 class="font-bold text-xl">
+												<img src="${BASE_URL}/news/${news.cover}" alt="news cover" class="hidden sm:block w-32 md:w-36 object-cover">
+												<div class="flex-grow flex flex-col gap-y-3 py-4 pr-5 sm:pr-0">
+													<h2 class="font-bold text-lg md:text-xl">
 														${news.title}
 													</h2>
-													<p class="line-clamp-2 flex-grow pl-4">${news.body}</p>
+													<p class="line-clamp-2 flex-grow pl-4 text-sm md:text-base">${news.body}</p>
 													<button class="self-end flex items-center ml-2 px-2 text-orange-400 gap-x-2">
-														<span>
+														<span class="text-sm sm:text-base">
 															ادامه مطلب
 														</span>
 														<svg class="w-4 h-4">
@@ -188,19 +188,19 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 						`}
 					</div>
 				</div>
-				<aside class="w-96 shrink-0 sticky top-5">
+				<aside class="w-full md:w-72 lg:w-96 shrink-0 sticky top-5">
 					<h1 class="section--title mr-5 before:bg-orange-500">
 						دسترسی سریع
 					</h1>
-					<ul class="mr-5 mt-8 border border-gray-200 rounded py-3 px-5">
+					<ul class="mr-5 mt-8 border border-gray-200 rounded py-3 px-5 space-y-4">
 						${sidebarMenus.length && sidebarMenus.map(menu => {
 							return `
-								<li class="flex gap-x-2 items-center">
+								<li class="w-full flex gap-x-2 items-center">
 									<span class="w-2 h-2 rounded-full bg-orange-500"></span>
-									<a href="${menu.href}">${menu.title}</a>
+									<a href="${menu.href}" class="w-full">${menu.title}</a>
 								</li>
 							`	
-						}) || '<h3 class="text-sm font-medium text-center">هیچ لینکی یافت نشد...</h3>'}
+						}).join('') || '<h3 class="text-sm font-medium text-center">هیچ لینکی یافت نشد...</h3>'}
 					</ul>
 				</aside>
 			</div>
