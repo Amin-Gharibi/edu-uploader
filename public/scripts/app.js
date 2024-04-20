@@ -1,6 +1,7 @@
 import getHeaderData from "./shared/header.js";
 import BASE_URL from "./util/BASE_URL.js";
 import {getLatestNews} from "./funcs/news.js";
+import {getAllSidebarMenus} from "./funcs/sidebarMenu.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
 	await fetchData()
@@ -9,18 +10,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 const fetchData = async () => {
 	try {
 	// 	fetch data from server
-		const [headerData, latestNews] = await Promise.all([getHeaderData(), getLatestNews()])
+		const [headerData, latestNews, sidebarMenus] = await Promise.all([getHeaderData(), getLatestNews(), getAllSidebarMenus()])
 
-		await renderPage(headerData, latestNews)
+		await renderPage(headerData, latestNews, sidebarMenus)
 	} catch (e) {
 		console.log('ERROR HANDLER: ', e)
 	}
 }
 
-const renderPage = async (headerData, latestNews) => {
+const renderPage = async (headerData, latestNews, sidebarMenus) => {
 	const container = document.querySelector('#content-container')
-
-	console.log(latestNews)
 
 	container.innerHTML = `
 		<header class="container max-w-[1200px] w-full py-4 flex justify-between items-center">
@@ -189,8 +188,20 @@ const renderPage = async (headerData, latestNews) => {
 						`}
 					</div>
 				</div>
-				<aside class="w-96 shrink-0 sticky top-5 h-10 bg-black">
-					
+				<aside class="w-96 shrink-0 sticky top-5">
+					<h1 class="section--title mr-5 before:bg-orange-500">
+						دسترسی سریع
+					</h1>
+					<ul class="mr-5 mt-8 border border-gray-200 rounded py-3 px-5">
+						${sidebarMenus.length && sidebarMenus.map(menu => {
+							return `
+								<li class="flex gap-x-2 items-center">
+									<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+									<a href="${menu.href}">${menu.title}</a>
+								</li>
+							`	
+						}) || '<h3 class="text-sm font-medium text-center">هیچ لینکی یافت نشد...</h3>'}
+					</ul>
 				</aside>
 			</div>
 		</main>
