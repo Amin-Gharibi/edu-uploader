@@ -128,10 +128,10 @@ const renderPage = async (headerData, latestNews) => {
 								<div class="swiper-slide !max-w-[1540px] mx-auto">
 									<a href="${data.href}">
 										<img src="${BASE_URL}/headerBanners/${data.cover}" alt="${data.title}" class="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px]">
+										<span class="absolute bottom-6 right-6 sm:bottom-14 sm:right-14 md:bottom-20 md:right-20 xl:bottom-24 xl:right-40 left-1 text-white font-bold text-lg sm:text-xl">
+											${data.title}
+										</span>
 									</a>
-									<span class="absolute bottom-6 right-6 sm:bottom-14 sm:right-14 md:bottom-20 md:right-20 xl:bottom-24 xl:right-40 left-1 text-white font-bold text-lg sm:text-xl">
-										${data.title}
-									</span>
 								</div>
 							`
 						}).join('')
