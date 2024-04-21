@@ -34,7 +34,7 @@ const renderPage = async () => {
 							نام کاربری
 						</span>
 					</div>
-					<input type="text" placeholder="...." class="w-full xs:w-80 md:w-96 rounded border border-gray-300 text-gray-400 px-3 py-2 group-focus-within:text-gray-600 group-focus-within:border-gray-600 group-focus-within:placeholder-gray-600 outline-0 transition-colors" autofocus>
+					<input id="username-input" type="text" placeholder="...." class="w-full xs:w-80 md:w-96 rounded border border-gray-300 text-gray-400 px-3 py-2 group-focus-within:text-gray-600 group-focus-within:border-gray-600 group-focus-within:placeholder-gray-600 outline-0 transition-colors" autofocus>
 				</div>
 				<div class="flex flex-col gap-y-2 group">
 					<div class="flex items-center gap-x-2 text-gray-400 group-focus-within:text-gray-600 transition-colors text-sm lg:text-base">
@@ -46,9 +46,9 @@ const renderPage = async () => {
 						</span>
 					</div>
 					<div class="relative">
-						<input type="text" placeholder="...." class="w-full xs:w-80 md:w-96 rounded border border-gray-300 text-gray-400 px-3 py-2 group-focus-within:text-gray-600 group-focus-within:border-gray-600 group-focus-within:placeholder-gray-600 outline-0 transition-colors">
-						<button type="button" class="absolute top-0 bottom-0 my-auto left-5"">
-							<svg class="w-4 h-4 text-gray-400 group-focus-within:text-gray-600 group">
+						<input id="password-input" type="password" placeholder="...." class="w-full xs:w-80 md:w-96 rounded border border-gray-300 text-gray-400 px-3 py-2 group-focus-within:text-gray-600 group-focus-within:border-gray-600 group-focus-within:placeholder-gray-600 outline-0 transition-colors">
+						<button type="button" class="change-password-state absolute top-0 bottom-0 my-auto left-5 group">
+							<svg class="w-4 h-4 text-gray-400 group-focus-within:text-gray-600">
 								<use href="#eye-slash" class="group-[.active]:hidden"></use>
 								<use href="#eye" class="hidden group-[.active]:block"></use>
 							</svg>
@@ -63,4 +63,13 @@ const renderPage = async () => {
 			</form>
 		</div>
 	`
+
+	const usernameInput = document.querySelector('#username-input')
+	const passwordInput = document.querySelector('#password-input')
+
+	const changePasswordStateBtn = document.querySelector('.change-password-state')
+	changePasswordStateBtn.addEventListener('click', () => {
+		passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password'
+		changePasswordStateBtn.classList.toggle('active')
+	})
 }
