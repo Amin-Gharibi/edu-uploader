@@ -1,8 +1,14 @@
 import { loginHandler } from "./funcs/auth.js"
 import { createToast } from "./util/toastNotification.js"
+import { getFromLocalStorage, saveToLocalStorage } from "./util/utils.js"
 
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+	if (getFromLocalStorage('accessToken')) {
+		// ^^^^^^^^^^^^^^^^^ validate token and redirect to panel
+	}
+
 	await fetchData()
 })
 
@@ -93,8 +99,6 @@ const renderPage = async () => {
 
 		const response = await loginHandler(username, password)
 
-		console.log(response);
-
 		if (response.status === 200 && response.accessToken) {
 			submitBtn.innerHTML = `
 				<div class="w-full h-full flex justify-center items-center">
@@ -106,8 +110,10 @@ const renderPage = async () => {
 			submitBtn.disabled = true
 
 			createToast('success', 'با موفقیت وارد شدید')
+			
+			saveToLocalStorage('accessToken', response.accessToken)
 
-			// redirect to supervisor panel
+			// ^^^^^^^^^^^^ redirect to panel
 		} else if (response.status === 401) {
 			submitBtn.innerHTML = `
 				<span class="inline">
