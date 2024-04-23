@@ -1,7 +1,53 @@
 import getHeaderData from "./shared/header.js";
 import BASE_URL from "./util/BASE_URL.js";
-import { getLatestNews } from "./funcs/news.js";
-import { getAllSidebarMenus } from "./funcs/sidebarMenu.js";
+import { get15News } from "./funcs/news.js";
+
+let startingIndex = 0
+const loadNewData = async () => {
+    const targetDocs = await get15News(startingIndex)
+
+    startingIndex += 16
+    return [...targetDocs]
+}
+
+// this flag is for ending calling this function because even after when we are done getting new data from db it runs this and appends 'all news loaded'
+let shouldContinue = true
+const handleInfiniteLoop = async () => {
+    if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 1000 && shouldContinue) {
+        const newData = await loadNewData()
+        const newDatasContainer = document.querySelector('.new-data--container div')
+        if (newData.length) {
+            newData.forEach(data => {
+                newDatasContainer.insertAdjacentHTML('beforeend', `
+                    <div class="w-full overflow-hidden rounded flex gap-x-3 border border-gray-200">
+                        <img src="${BASE_URL}/news/${data.cover}" alt="news cover" class="hidden sm:block w-32 md:w-36 object-cover">
+                        <div class="flex-grow flex flex-col gap-y-3 py-4 pr-5 sm:pr-0">
+                            <h2 class="font-bold text-lg md:text-xl">
+                                ${data.title}
+                            </h2>
+                            <p class="line-clamp-2 flex-grow pl-4 text-sm md:text-base">${data.body}</p>
+                            <button class="self-end flex items-center ml-2 px-2 text-orange-400 gap-x-2">
+                                <span class="text-sm sm:text-base">
+                                    ادامه مطلب
+                                </span>
+                                <svg class="w-4 h-4">
+                                    <use href="#arrow-left"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `)
+            })
+        } else {
+            newDatasContainer.innerHTML += `
+            <h2 class="text-center mt-8 font-medium text-sm text-gray-400">
+                تمام اخبار نمایش داده شده اند...
+            </h2>
+            `
+            shouldContinue = false
+        }
+    }
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchData()
@@ -10,15 +56,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 const fetchData = async () => {
     try {
         // 	fetch data from server
-        const [headerData, latestNews] = await Promise.all([getHeaderData(), getLatestNews()])
+        const [headerData, loadedData] = await Promise.all([getHeaderData(), loadNewData()])
 
-        await renderPage(headerData, latestNews)
+        await renderPage(headerData, loadedData)
     } catch (e) {
         console.log('ERROR HANDLER: ', e)
     }
 }
 
-const renderPage = async (headerData, latestNews) => {
+const renderPage = async (headerData, loadedData) => {
     const container = document.querySelector('#content-container')
 
     container.innerHTML = `
@@ -132,15 +178,15 @@ const renderPage = async (headerData, latestNews) => {
                     </div>
                 </form>
             </div>
-            <div class="md:max-w-full w-full mt-8">
-						${!latestNews.length && `
+            <div class="new-data--container md:max-w-full w-full mt-8">
+						${!loadedData.length && `
 							<h2 class="text-center mt-8 font-medium">
 								خبری یافت نشد...!
 							</h2>
 						` || `
 							<div class="flex flex-col gap-y-5">
 								${
-									latestNews.map(news => {
+									loadedData.map(news => {
 										return `
 											<div class="w-full overflow-hidden rounded flex gap-x-3 border border-gray-200">
 												<img src="${BASE_URL}/news/${news.cover}" alt="news cover" class="hidden sm:block w-32 md:w-36 object-cover">
@@ -170,4 +216,15 @@ const renderPage = async (headerData, latestNews) => {
 
     headerData.initMobileMenuToggling()
     headerData.initMobileMenuItemsTogglingSubMenus()
+
+    if (loadedData.length == 15) {
+        window.addEventListener('scroll', async () => await handleInfiniteLoop())
+    } else {
+        const datasContainer = document.querySelector('.new-data--container div')
+        datasContainer.insertAdjacentHTML('beforeend', `
+            <h2 class="text-center mt-8 font-medium text-sm text-gray-400">
+                تمام اخبار نمایش داده شده اند...
+            </h2>
+        `)
+    }
 }
