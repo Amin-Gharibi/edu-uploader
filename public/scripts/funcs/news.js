@@ -12,7 +12,14 @@ const get15News = async (startingIndex) => {
 	return await response.json()
 }
 
+const getOne = async (id) => {
+	const response = await fetch(`${BASE_URL}/api/news/${id}`)
+
+	return await response.json()
+}
+
 export {
 	getLatestNews,
-	get15News
+	get15News,
+	getOne
 }
