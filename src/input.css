@@ -214,4 +214,39 @@
       }
 
       /* toast notification end */
+
+      /* upload progress bar */
+
+      .upload-progress-bar {
+        @apply w-1/3 ltr h-5 relative;
+      }
+
+      .upload-progress-bar::before {
+        content: attr(data-before);
+        @apply absolute inset-0 w-full h-full flex justify-center items-center text-gray-800 text-sm;
+      }
+
+      .upload-progress-bar::-webkit-progress-bar {
+        @apply bg-gray-300;
+      }
+
+      .upload-progress-bar::-webkit-progress-value {
+        @apply bg-green-600;
+      }
+
+      .upload-progress-bar,
+      .upload-progress-bar::-webkit-progress-bar,
+      .upload-progress-bar::-webkit-progress-value {
+        @apply rounded
+      }
+}
+
+@layer utilities {
+  .ltr {
+    direction: ltr;
+  }
+
+  .rtl {
+    direction: rtl;
+  }
 }

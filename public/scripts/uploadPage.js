@@ -1,4 +1,5 @@
 import { getOneFocusedSubject } from "./funcs/focusedSubjects.js";
+import { createUpload } from "./funcs/upload.js";
 import getHeaderData from "./shared/header.js";
 import BASE_URL from "./util/BASE_URL.js";
 
@@ -26,7 +27,7 @@ const fetchData = async () => {
 	}
 }
 
-const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) => {
+const renderPage = async (headerData, focusedSubjectName) => {
 	const container = document.querySelector('#content-container')
 
 	container.innerHTML = `
@@ -145,7 +146,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 									*
 								</span>
 							</span>
-							<input type="text" placeholder="نام آموزشگاه..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input id="school-name" type="text" placeholder="نام آموزشگاه..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
 						</div>
 						<div class="flex flex-col gap-y-2">
 							<span class="text-sm text-gray-600">
@@ -154,7 +155,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 									*
 								</span>
 							</span>
-							<select class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded">
+							<select id="school-type" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded">
 								<option value="">
 									انتخاب کنید...
 								</option>
@@ -173,7 +174,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 									*
 								</span>
 							</span>
-							<select class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded">
+							<select id="school-gender" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded">
 								<option value="">
 									انتخاب کنید...
 								</option>
@@ -192,7 +193,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 					<h2 class="font-demiBold text-lg">
 						افراد حاضر در پروژه:
 					</h2>
-					<div class="mt-3 grid grid-cols-3 gap-4">
+					<div class="participant-info-container mt-3 grid grid-cols-3 gap-4">
 						<div class="flex flex-col gap-y-2">
 							<span class="text-sm text-gray-600">
 								نام:
@@ -200,7 +201,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 									*
 								</span>
 							</span>
-							<input type="text" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input type="text" name="firstName" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
 						</div>
 						<div class="flex flex-col gap-y-2">
 							<span class="text-sm text-gray-600">
@@ -209,10 +210,10 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 									*
 								</span>
 							</span>
-							<input type="text" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input type="text" name="lastName" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
 						</div>
 					</div>
-					<button type="button" id="add-new-participant" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+					<button type="button" id="add-new-participant" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
 						افزودن شرکت کننده
 					</button>
 				</div>
@@ -221,7 +222,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 					<h2 class="font-demiBold text-lg">
 						نمونه برگ ها:
 					</h2>
-					<div class="mt-3 grid grid-cols-3 gap-4">
+					<div class="example-page-container mt-3 grid grid-cols-3 gap-4">
 						<div class="flex flex-col gap-y-2">
 							<span class="text-sm text-gray-600">
 								فایل نمونه برگ:
@@ -232,7 +233,7 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
 						</div>
 					</div>
-					<button type="button" id="add-new-example-page-input" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+					<button type="button" id="add-new-example-page-input" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
 						افزودن نمونه برگ
 					</button>
 				</div>
@@ -249,12 +250,12 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 									*
 								</span>
 							</span>
-							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input id="file-input" type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
 						</div>
 					</div>
 				</div>
 
-				<div class="w-full flex justify-center mt-10">
+				<div class="submit-btn--container w-full flex flex-col items-center justify-center gap-y-6 mt-10">
 					<button type="submit" class="w-64 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
 						ارسال نهایی
 					</button>
@@ -265,4 +266,100 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 
 	headerData.initMobileMenuToggling()
 	headerData.initMobileMenuItemsTogglingSubMenus()
+
+	const addNewParticipantsBtn = document.querySelector('#add-new-participant')
+	addNewParticipantsBtn.addEventListener('click', () => {
+		addNewParticipantsBtn.disabled = true
+		addNewParticipantsBtn.insertAdjacentHTML('beforebegin', `
+		<div class="participant-info-container mt-3 grid grid-cols-3 gap-4">
+			<div class="flex flex-col gap-y-2">
+				<span class="text-sm text-gray-600">
+					نام:
+					<span class="text-red-600">
+						*
+					</span>
+				</span>
+				<input type="text" name="firstName" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+			</div>
+			<div class="flex flex-col gap-y-2">
+				<span class="text-sm text-gray-600">
+					نام خانوادگی:
+					<span class="text-red-600">
+						*
+					</span>
+				</span>
+				<input type="text" name="lastName" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+			</div>
+		</div>
+		`)
+	})
+
+	const addNewExamplePageBtn = document.querySelector('#add-new-example-page-input')
+	addNewExamplePageBtn.addEventListener('click', () => {
+		addNewExamplePageBtn.insertAdjacentHTML('beforebegin', `
+		<div class="example-page-container mt-3 grid grid-cols-3 gap-4">
+			<div class="flex flex-col gap-y-2">
+				<span class="text-sm text-gray-600">
+					فایل نمونه برگ:
+					<span class="text-red-600">
+						*
+					</span>
+				</span>
+				<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+			</div>
+		</div>
+		`)
+		const examplePages = document.querySelectorAll('.example-page-container')
+		if (examplePages.length == 5) {
+			addNewExamplePageBtn.disabled = true
+		}
+	})
+
+	const form = document.querySelector('form')
+	form.addEventListener('submit', async event => {
+		event.preventDefault()
+
+		const submitBtnContainer = document.querySelector('.submit-btn--container')
+		submitBtnContainer.insertAdjacentHTML('afterbegin', `
+			<progress value="0" data-before="0%" max="100" class="upload-progress-bar"></progress>
+		`)
+		
+		const progressBar = submitBtnContainer.querySelector('progress')
+
+		const schoolNameInput = document.querySelector('#school-name')
+		const schoolTypeInput = document.querySelector('#school-type')
+		const schoolGenderInput = document.querySelector('#school-gender')
+		const participantsContainers = document.querySelectorAll('.participant-info-container')
+		const examplePagesContainers = document.querySelectorAll('.example-page-container')
+		const fileInput = document.querySelector('#file-input')
+
+		const sendingData = new FormData()
+
+		sendingData.append("focusedSubject", "6628e267771c29097700a4c5"),
+		sendingData.append("schoolName", schoolNameInput.value.trim()),
+		sendingData.append("schoolType", schoolTypeInput.value.trim()),
+		sendingData.append("schoolGender", schoolGenderInput.value.trim()),
+		sendingData.append("file", fileInput.files[0])
+
+		let firstNameInput;
+		let lastNameInput;
+		participantsContainers.forEach((container, index) => {
+			firstNameInput = container.querySelector('input[name="firstName"]')
+			lastNameInput = container.querySelector('input[name="lastName"]')
+			
+			sendingData.append(`participants[${index}][firstName]`, firstNameInput.value.trim())
+			sendingData.append(`participants[${index}][lastName]`, lastNameInput.value.trim())
+		})
+
+		let examplePage;
+		examplePagesContainers.forEach((container) => {
+			examplePage = container.querySelector('input')
+
+			sendingData.append(`examplePages`, examplePage.files[0])
+		})
+
+		const result = await createUpload(sendingData, progressBar)
+
+		console.log(result);
+	})
 }
