@@ -118,7 +118,7 @@ const renderPage = async (headerData, focusedSubjectName) => {
     		    </ul>
     		</div>
     		<a href="#" type="button"
-    		        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+    		        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-xs md:text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
     		    <span class="hidden sm:inline">
     		    	ورود ناظر
 				</span>
@@ -128,35 +128,37 @@ const renderPage = async (headerData, focusedSubjectName) => {
     		</a>
 		</header>
 		<main class="container max-w-[1200px] border-t border-t-gray-300 py-10">
-			<h1 class="font-medium text-center pb-2">
+			<h1 class="font-medium text-center pb-2 text-sm md:text-base flex flex-col gap-y-1">
+				<span class="text-xs text-gray-500">
 				آپلود پروژه با محوریت: 
-				<span class="text-xl font-bold">
+				</span>
+				<span class="text-lg md:text-xl font-bold">
 					${focusedSubjectName}
 				</span>
 			</h1>
 			<form class="mt-5">
 				<div>
-					<h2 class="font-demiBold text-lg">
+					<h2 class="font-demiBold text-base md:text-lg">
 						آموزشگاه:
 					</h2>
-					<div class="mt-3 grid grid-cols-3 gap-4">
+					<div class="mt-3 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								نام:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<input id="school-name" type="text" placeholder="نام آموزشگاه..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input id="school-name" type="text" placeholder="نام آموزشگاه..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 						</div>
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								نوع:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<select id="school-type" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded">
+							<select id="school-type" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base">
 								<option value="">
 									انتخاب کنید...
 								</option>
@@ -169,13 +171,13 @@ const renderPage = async (headerData, focusedSubjectName) => {
 							</select>
 						</div>
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								جنسیت:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<select id="school-gender" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded">
+							<select id="school-gender" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base">
 								<option value="">
 									انتخاب کنید...
 								</option>
@@ -191,67 +193,67 @@ const renderPage = async (headerData, focusedSubjectName) => {
 				</div>
 
 				<div class="border-t border-gray-100 mt-5 pt-5">
-					<h2 class="font-demiBold text-lg">
+					<h2 class="font-demiBold text-base md:text-lg">
 						افراد حاضر در پروژه:
 					</h2>
-					<div class="participant-info-container mt-3 grid grid-cols-3 gap-4">
+					<div class="participant-info-container mt-3 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								نام:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<input type="text" name="firstName" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input type="text" name="firstName" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 						</div>
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								نام خانوادگی:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<input type="text" name="lastName" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input type="text" name="lastName" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 						</div>
 					</div>
-					<button type="button" id="add-new-participant" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+					<button type="button" id="add-new-participant" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-xs md:text-sm px-5 py-2.5 focus:outline-none">
 						افزودن شرکت کننده
 					</button>
 				</div>
 
 				<div class="border-t border-gray-100 mt-5 pt-5">
-					<h2 class="font-demiBold text-lg">
+					<h2 class="font-demiBold text-base md:text-lg">
 						نمونه برگ ها:
 					</h2>
-					<div class="example-page-container mt-3 grid grid-cols-3 gap-4">
+					<div class="example-page-container mt-3 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								فایل نمونه برگ:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 						</div>
 					</div>
-					<button type="button" id="add-new-example-page-input" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+					<button type="button" id="add-new-example-page-input" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-xs md:text-sm px-5 py-2.5 focus:outline-none">
 						افزودن نمونه برگ
 					</button>
 				</div>
 
 				<div class="border-t border-gray-100 mt-5 pt-5">
-					<h2 class="font-demiBold text-lg">
+					<h2 class="font-demiBold text-base md:text-lg">
 						فایل ها:
 					</h2>
-					<div class="mt-3 grid grid-cols-3 gap-4">
+					<div class="mt-3 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
 						<div class="flex flex-col gap-y-2">
-							<span class="text-sm text-gray-600">
+							<span class="text-xs md:text-sm text-gray-600">
 								فایل با هر فرمتی:
 								<span class="text-red-600">
 									*
 								</span>
 							</span>
-							<input id="file-input" type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+							<input id="file-input" type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 						</div>
 					</div>
 				</div>
@@ -272,24 +274,24 @@ const renderPage = async (headerData, focusedSubjectName) => {
 	addNewParticipantsBtn.addEventListener('click', () => {
 		addNewParticipantsBtn.disabled = true
 		addNewParticipantsBtn.insertAdjacentHTML('beforebegin', `
-		<div class="participant-info-container mt-3 grid grid-cols-3 gap-4">
+		<div class="participant-info-container mt-3 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
 			<div class="flex flex-col gap-y-2">
-				<span class="text-sm text-gray-600">
+				<span class="text-xs md:text-sm text-gray-600">
 					نام:
 					<span class="text-red-600">
 						*
 					</span>
 				</span>
-				<input type="text" name="firstName" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+				<input type="text" name="firstName" placeholder="نام شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 			</div>
 			<div class="flex flex-col gap-y-2">
-				<span class="text-sm text-gray-600">
+				<span class="text-xs md:text-sm text-gray-600">
 					نام خانوادگی:
 					<span class="text-red-600">
 						*
 					</span>
 				</span>
-				<input type="text" name="lastName" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+				<input type="text" name="lastName" placeholder="نام خانوادگی شرکت کننده..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 			</div>
 		</div>
 		`)
@@ -298,15 +300,15 @@ const renderPage = async (headerData, focusedSubjectName) => {
 	const addNewExamplePageBtn = document.querySelector('#add-new-example-page-input')
 	addNewExamplePageBtn.addEventListener('click', () => {
 		addNewExamplePageBtn.insertAdjacentHTML('beforebegin', `
-		<div class="example-page-container mt-3 grid grid-cols-3 gap-4">
+		<div class="example-page-container mt-3 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
 			<div class="flex flex-col gap-y-2">
-				<span class="text-sm text-gray-600">
+				<span class="text-xs md:text-sm text-gray-600">
 					فایل نمونه برگ:
 					<span class="text-red-600">
 						*
 					</span>
 				</span>
-				<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+				<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
 			</div>
 		</div>
 		`)
