@@ -237,6 +237,23 @@ const renderPage = async (headerData, focusedSubjectName, allFocusedSubjects) =>
 					</button>
 				</div>
 
+				<div class="border-t border-gray-100 mt-5 pt-5">
+					<h2 class="font-demiBold text-lg">
+						فایل ها:
+					</h2>
+					<div class="mt-3 grid grid-cols-3 gap-4">
+						<div class="flex flex-col gap-y-2">
+							<span class="text-sm text-gray-600">
+								فایل با هر فرمتی:
+								<span class="text-red-600">
+									*
+								</span>
+							</span>
+							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded" required>
+						</div>
+					</div>
+				</div>
+
 				<div class="w-full flex justify-center mt-10">
 					<button type="submit" class="w-64 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
 						ارسال نهایی
