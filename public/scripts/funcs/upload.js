@@ -1,10 +1,6 @@
 import BASE_URL from "../util/BASE_URL.js";
 
 const createUpload = async (data, uploadProgress) => {
-    for(let [key, value] of data.entries()) {
-        console.log({key, value});
-    }
-
     const result = await axios
         .post(`${BASE_URL}/api/upload`, data, {
             headers: {

@@ -2,6 +2,7 @@ import { getOneFocusedSubject } from "./funcs/focusedSubjects.js";
 import { createUpload } from "./funcs/upload.js";
 import getHeaderData from "./shared/header.js";
 import BASE_URL from "./util/BASE_URL.js";
+import { createToast } from "./util/toastNotification.js";
 
 const getTargetFocusedSubjectsName = async () => {
 	const path = location.pathname.split('/')
@@ -256,7 +257,7 @@ const renderPage = async (headerData, focusedSubjectName) => {
 				</div>
 
 				<div class="submit-btn--container w-full flex flex-col items-center justify-center gap-y-6 mt-10">
-					<button type="submit" class="w-64 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+					<button type="submit" class="w-64 h-10 flex justify-center items-center text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-70 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
 						ارسال نهایی
 					</button>
 				</div>
@@ -319,13 +320,29 @@ const renderPage = async (headerData, focusedSubjectName) => {
 	form.addEventListener('submit', async event => {
 		event.preventDefault()
 
-		const submitBtnContainer = document.querySelector('.submit-btn--container')
-		submitBtnContainer.insertAdjacentHTML('afterbegin', `
-			<progress value="0" data-before="0%" max="100" class="upload-progress-bar"></progress>
-		`)
-		
-		const progressBar = submitBtnContainer.querySelector('progress')
+		const submitBtn = document.querySelector('button[type="submit"]')
+		submitBtn.disabled = true
+		submitBtn.innerHTML = `
+			<div class="w-full h-full pt-2 sm:pt-1 justify-center flex space-x-2">
+				<span class='sr-only'></span>
+				<div class='w-3 h-3 sm:h-3.5 sm:w-3.5 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+				<div class='w-3 h-3 sm:h-3.5 sm:w-3.5 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+				<div class='w-3 h-3 sm:h-3.5 sm:w-3.5 bg-white rounded-full animate-bounce'></div>
+			</div>
+		`
 
+		let progressBar = document.querySelector('.submit-btn--container > progress')
+		if (!progressBar) {
+			const submitBtnContainer = document.querySelector('.submit-btn--container')
+			submitBtnContainer.insertAdjacentHTML('afterbegin', `
+				<progress value="0" data-before="0%" max="100" class="upload-progress-bar"></progress>
+			`)
+			progressBar = document.querySelector('.submit-btn--container > progress')
+		} else {
+			progressBar.value = 0
+			progressBar.dataset.before = '0%'
+		}
+		
 		const schoolNameInput = document.querySelector('#school-name')
 		const schoolTypeInput = document.querySelector('#school-type')
 		const schoolGenderInput = document.querySelector('#school-gender')
@@ -360,6 +377,19 @@ const renderPage = async (headerData, focusedSubjectName) => {
 
 		const result = await createUpload(sendingData, progressBar)
 
-		console.log(result);
+		if (result.status === 201) {
+			createToast('success', 'پروژه مورد نظر با موفقیت ارسال شد')
+			submitBtn.innerHTML = `
+				<svg class="w-5 h-5">
+					<use href="#check"></use>
+				</svg>
+			`
+		} else {
+			createToast('error', 'خطایی در ارسال نهایی پروژه صورت گرفت. لطفا با پشتیبانی ارتباط بگیرید')
+			submitBtn.innerHTML = `
+				ارسال نهایی
+			`
+			submitBtn.disabled = false
+		}
 	})
 }
