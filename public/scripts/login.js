@@ -111,7 +111,7 @@ const renderPage = async () => {
 
 			createToast('success', 'با موفقیت وارد شدید')
 			
-			saveToLocalStorage('accessToken', response.accessToken)
+			saveToLocalStorage('user', {accessToken: response.accessToken})
 
 			// ^^^^^^^^^^^^ redirect to panel
 		} else if (response.status === 401) {

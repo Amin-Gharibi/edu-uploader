@@ -1,4 +1,5 @@
 import BASE_URL from "../util/BASE_URL.js";
+import { getFromLocalStorage } from "../util/utils.js";
 
 const loginHandler = async (username, password) => {
     const sendingBody = {
@@ -26,6 +27,19 @@ const loginHandler = async (username, password) => {
 	return returningValue
 }
 
+const getPanelInfo = async () => {
+    const user = getFromLocalStorage('user')
+
+    const response = await fetch(`${BASE_URL}/api/auth/panel`, {
+        headers: {
+            'Authorization': `Bearer ${user.accessToken}`
+        }
+    })
+
+    return await response.json()
+}
+
 export {
-	loginHandler
+	loginHandler,
+    getPanelInfo
 }

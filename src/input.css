@@ -249,4 +249,8 @@
   .rtl {
     direction: rtl;
   }
+
+  .hideScrollbar::-webkit-scrollbar {
+    @apply hidden;
+  }
 }
