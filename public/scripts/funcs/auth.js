@@ -1,5 +1,5 @@
 import BASE_URL from "../util/BASE_URL.js";
-import { getFromLocalStorage } from "../util/utils.js";
+import { getToken } from "../util/utils.js";
 
 const loginHandler = async (username, password) => {
     const sendingBody = {
@@ -42,7 +42,7 @@ const registerHandler = async (username, password, firstName, lastName, areaName
     const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`,
+            'Authorization': `Bearer ${getToken()}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
@@ -54,11 +54,9 @@ const registerHandler = async (username, password, firstName, lastName, areaName
 }
 
 const getPanelInfo = async () => {
-    const user = getFromLocalStorage('user')
-
     const response = await fetch(`${BASE_URL}/api/auth/panel`, {
         headers: {
-            'Authorization': `Bearer ${user.accessToken}`
+            'Authorization': `Bearer ${getToken()}`
         }
     })
 

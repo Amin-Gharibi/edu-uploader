@@ -1,10 +1,10 @@
 import BASE_URL from "../util/BASE_URL.js";
-import { getFromLocalStorage } from "../util/utils.js";
+import { getToken } from "../util/utils.js";
 
 const getAllUsers = async () => {
 	const response = await fetch(`${BASE_URL}/api/user`, {
         headers: {
-            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`
+            'Authorization': `Bearer ${getToken()}`
         }
     })
 
@@ -15,7 +15,7 @@ const deleteUser = async id => {
     const response = await fetch(`${BASE_URL}/api/user/${id}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`
+            'Authorization': `Bearer ${getToken()}`
         }
     })
 
@@ -24,7 +24,18 @@ const deleteUser = async id => {
     return {data, ok: response.ok}
 }
 
+const getUserUploads = async () => {
+    const response = await fetch(`${BASE_URL}/api/user/uploads`, {
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    return await response.json()
+}
+
 export {
 	getAllUsers,
-    deleteUser
+    deleteUser,
+    getUserUploads
 }

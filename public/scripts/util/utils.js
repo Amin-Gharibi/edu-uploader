@@ -12,8 +12,13 @@ const getFromLocalStorage = (key) => {
 	return JSON.parse(localStorage.getItem(key))
 }
 
+const getToken = () => {
+	return getFromLocalStorage('user').accessToken
+}
+
 export {
 	toggleMultipleClasses,
 	saveToLocalStorage,
-	getFromLocalStorage
+	getFromLocalStorage,
+	getToken
 }
