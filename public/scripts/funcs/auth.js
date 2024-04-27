@@ -42,7 +42,8 @@ const registerHandler = async (username, password, firstName, lastName, areaName
     const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`
+            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
     })
