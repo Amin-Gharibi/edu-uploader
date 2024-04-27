@@ -303,6 +303,8 @@ const renderPage = async (info) => {
         } else if (value === 'users') {
             const [allUsers, allFocusedSubjects] = await Promise.all([getAllUsers(), getAllFocusedSubjects()])
             
+            console.log(allUsers);
+
             dynamicContentContainer.innerHTML = `
                 <form class="add-new-user mt-10">
                     <div class="grid grid-cols-3 gap-5 ">
@@ -406,6 +408,38 @@ const renderPage = async (info) => {
                         </button>
                     </div>
                 </form>
+
+                <div class="max-w-[330px] xs:max-w-[390px] md:max-w-[490px] lg:max-w-[700px] xl:max-w-max mt-12 w-full ruonded p-5 customBoxShadow flex flex-col gap-y-6">
+                    <h2 class="font-extraBold text-lg flex justify-start items-center gap-x-2">
+                        <span class="w-4 h-1 bg-blue-500 shadow-sm shadow-blue-500 rounded"></span>
+                            آخرین افراد ثبت شده در وبسایت
+                        <span class="w-4 h-1 bg-blue-500 shadow-sm shadow-blue-500 rounded"></span>
+                    </h2>
+                    <table>
+                        <thead class="bg-blue-200/20 text-gray-500">
+                            <tr>
+                                <th>نام کاربری</th>
+                                <th>نام و نام خانوادگی</th>
+                                <th>حوزه فعالیت</th>
+                                <th>منطقه، استان</th>
+                                <th>نقش</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            ${allUsers.map(user => {
+                                return `
+                                    <tr>
+                                        <td>${user.username}</td>
+                                        <td>${user.firstName} ${user.lastName}</td>
+                                        <td>${user.focusedSubject?.title || '-'}</td>
+                                        <td>${user.areaName}، ${user.provinceName}</td>
+                                        <td>${user.role}</td>
+                                    </tr>
+                                `
+                            }).join('') || ''}
+                        </tbody>
+                    </table>
+                </div>
             `
 
             const addNewUserForm = document.querySelector('form.add-new-user')
