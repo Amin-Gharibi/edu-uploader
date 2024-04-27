@@ -1,4 +1,5 @@
-import { getPanelInfo } from "./funcs/auth.js"
+import { getPanelInfo, registerHandler } from "./funcs/auth.js"
+import { getAllFocusedSubjects } from "./funcs/focusedSubjects.js"
 import { getAllUsers } from "./funcs/user.js"
 import BASE_URL from "./util/BASE_URL.js"
 
@@ -79,7 +80,7 @@ const renderPage = async (info) => {
             </div>
             <div class="flex-grow flex flex-col p-10">
                 <div class="flex items-center gap-x-6">
-                    <button class="toggle-mobile-menu">
+                    <button class="toggle-mobile-menu sm:hidden">
                         <svg class="w-6 h-6">
                             <use href="#hamburger-menu"></use>
                         </svg>
@@ -300,11 +301,133 @@ const renderPage = async (info) => {
         if (value === 'main') {
             location.reload()
         } else if (value === 'users') {
-            const [allUsers] = await Promise.all([getAllUsers()])
+            const [allUsers, allFocusedSubjects] = await Promise.all([getAllUsers(), getAllFocusedSubjects()])
             
-            // dynamicContentContainer.innerHTML = `
+            dynamicContentContainer.innerHTML = `
+                <form class="add-new-user mt-10">
+                    <div class="grid grid-cols-3 gap-5 ">
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                نام کاربری:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <input id="username-input" type="text" placeholder="نام کاربری..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                رمز عبور:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <input id="password-input" type="text" placeholder="رمز عبور..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                نام:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <input id="first-name-input" type="text" placeholder="نام..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                نام خانوادگی:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <input id="last-name-input" type="text" placeholder="نام خانوادگی..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                نام منطقه:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <input id="area-name-input" type="text" placeholder="نام منطقه..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                نام استان:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <input id="province-name-input" type="text" placeholder="نام استان..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                نقش:
+                                <span class="text-red-600">
+                                    *
+                                </span>
+                            </span>
+                            <select id="role-input" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base">
+                                    <option value="">
+                                        انتخاب کنید...
+                                    </option>
+                                    <option value="ADMIN">
+                                        ادمین
+                                    </option>
+                                    <option value="SUPERVISOR">
+                                        ناظر
+                                    </option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                حوزه فعالیت:
+                                <span class="text-gray-500 text-xs">
+                                    (اگر کاربر جدید ادمین است، نیاز نیست انتخاب شود)
+                                </span>
+                            </span>
+                            <select id="focused-subject-input" class="p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base">
+                                    <option value="">
+                                        انتخاب کنید...
+                                    </option>
+                                    ${allFocusedSubjects.map(focusedSubject => {
+                                        return `
+                                        <option value="${focusedSubject._id}">
+                                            ${focusedSubject.title}
+                                        </option>
+                                        `
+                                    })}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-center items-center mt-10">
+                        <button type="submit" class="w-60 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
+                            ایجاد کاربر
+                        </button>
+                    </div>
+                </form>
+            `
 
-            // `
+            const addNewUserForm = document.querySelector('form.add-new-user')
+            addNewUserForm.addEventListener('submit', async event => {
+                event.preventDefault()
+                
+                const usernameInput = document.querySelector('#username-input')
+                const passwordInput = document.querySelector('#password-input')
+                const firstNameInput = document.querySelector('#first-name-input')
+                const lastNameInput = document.querySelector('#last-name-input')
+                const areaNameInput = document.querySelector('#area-name-input')
+                const provinceNameInput = document.querySelector('#province-name-input')
+                const roleInput = document.querySelector('#role-input')
+                const focusedSubjectInput = document.querySelector('#focused-subject-input')
+
+                
+                
+
+                const data = await registerHandler(usernameInput.value.trim(), passwordInput.value.trim(), firstNameInput.value.trim(), lastNameInput.value.trim(), areaNameInput.value.trim(), provinceNameInput.value.trim(), focusedSubjectInput.value.trim(), roleInput.value.trim())
+
+                console.log(data);
+            })
         }
     }
 

@@ -27,6 +27,29 @@ const loginHandler = async (username, password) => {
 	return returningValue
 }
 
+const registerHandler = async (username, password, firstName, lastName, areaName, provinceName, focusedSubject, role) => {
+    const body = {
+        username,
+        password,
+        firstName,
+        lastName,
+        areaName,
+        provinceName,
+        focusedSubject,
+        role
+    }
+
+    const response = await fetch(`${BASE_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`
+        },
+        body: JSON.stringify(body)
+    })
+
+    return await response.json()
+}
+
 const getPanelInfo = async () => {
     const user = getFromLocalStorage('user')
 
@@ -41,5 +64,6 @@ const getPanelInfo = async () => {
 
 export {
 	loginHandler,
+    registerHandler,
     getPanelInfo
 }
