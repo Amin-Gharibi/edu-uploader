@@ -2,7 +2,7 @@ const createToast = (type, text) => {
     let toastList = document.querySelector('.toast-list')
     if (!toastList) {
         document.querySelector('body').insertAdjacentHTML('afterbegin', `
-            <ul class="toast-list"></ul>
+            <ul class="toast-list z-[1000]"></ul>
         `)
         toastList = document.querySelector('.toast-list')
     }

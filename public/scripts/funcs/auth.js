@@ -48,7 +48,9 @@ const registerHandler = async (username, password, firstName, lastName, areaName
         body: JSON.stringify(body)
     })
 
-    return await response.json()
+    const data = await response.json()
+
+    return {data, ok: response.ok}
 }
 
 const getPanelInfo = async () => {

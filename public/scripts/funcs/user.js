@@ -11,6 +11,20 @@ const getAllUsers = async () => {
 	return await response.json()
 }
 
+const deleteUser = async id => {
+    const response = await fetch(`${BASE_URL}/api/user/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${getFromLocalStorage('user').accessToken}`
+        }
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
 export {
-	getAllUsers
+	getAllUsers,
+    deleteUser
 }
