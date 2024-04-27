@@ -254,10 +254,21 @@
     @apply py-3;
   }
 
-
-
   table td {
     @apply text-center;
+  }
+
+  th,
+  td {
+    @apply min-w-[130px];
+  }
+
+  table {
+    @apply block max-w-[850px] xl:w-max overflow-x-auto whitespace-nowrap;
+  }
+
+  .menu.active {
+    @apply right-0;
   }
 }
 
