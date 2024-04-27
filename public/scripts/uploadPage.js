@@ -8,7 +8,7 @@ const getTargetFocusedSubjectsName = async () => {
 	const path = location.pathname.split('/')
 	// real One => path[path.length - 1]
 	// for test we use "test"
-	const targetFocusedSubject = await getOneFocusedSubject("test")
+	const targetFocusedSubject = await getOneFocusedSubject("testt")
 
 	return targetFocusedSubject.title
 }
@@ -354,7 +354,7 @@ const renderPage = async (headerData, focusedSubjectName) => {
 
 		const sendingData = new FormData()
 
-		sendingData.append("focusedSubject", "6628e267771c29097700a4c5"),
+		sendingData.append("focusedSubject", "6628e2966596378dac53c09b"),
 		sendingData.append("schoolName", schoolNameInput.value.trim()),
 		sendingData.append("schoolType", schoolTypeInput.value.trim()),
 		sendingData.append("schoolGender", schoolGenderInput.value.trim()),

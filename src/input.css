@@ -3,242 +3,262 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-        font-family: "ir-sans-thin";
-        src: url("../fonts/IRANSansXThin.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-thin";
+    src: url("../fonts/IRANSansXThin.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-ultra-light";
-        src: url("../fonts/IRANSansXUltraLight.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-ultra-light";
+    src: url("../fonts/IRANSansXUltraLight.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-light";
-        src: url("../fonts/IRANSansXLight.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-light";
+    src: url("../fonts/IRANSansXLight.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-regular";
-        src: url("../fonts/IRANSansXRegular.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-regular";
+    src: url("../fonts/IRANSansXRegular.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-medium";
-        src: url("../fonts/IRANSansXMedium.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-medium";
+    src: url("../fonts/IRANSansXMedium.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-demi-bold";
-        src: url("../fonts/IRANSansXDemiBold.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-demi-bold";
+    src: url("../fonts/IRANSansXDemiBold.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-bold";
-        src: url("../fonts/IRANSansXBold.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-bold";
+    src: url("../fonts/IRANSansXBold.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-extra-bold";
-        src: url("../fonts/IRANSansXExtraBold.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-extra-bold";
+    src: url("../fonts/IRANSansXExtraBold.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    @font-face {
-        font-family: "ir-sans-black";
-        src: url("../fonts/IRANSansXBlack.ttf") format("truetype");
-        font-display: swap;
-    }
+  @font-face {
+    font-family: "ir-sans-black";
+    src: url("../fonts/IRANSansXBlack.ttf") format("truetype");
+    font-display: swap;
+  }
 
-    body {
-        @apply font-regular;
-    }
+  body {
+    @apply font-regular;
+  }
 }
 
 @layer components {
-    .swiper--navigators {
-        @apply hidden sm:flex absolute top-0 bottom-0 z-10 h-max my-auto bg-white p-3 justify-center items-center rounded-full;
+  .swiper--navigators {
+    @apply hidden sm:flex absolute top-0 bottom-0 z-10 h-max my-auto bg-white p-3 justify-center items-center rounded-full;
+  }
+
+  .swiper-button-next--custom {
+    @apply left-5;
+  }
+
+  .swiper-button-prev--custom {
+    @apply right-5;
+  }
+
+  .mobile-menu--items.active {
+    @apply text-gray-900;
+  }
+
+  .mobile-menu--items.active ul {
+    @apply max-h-max visible opacity-100;
+  }
+
+  .mobile-menu--items.active svg {
+    @apply rotate-180;
+  }
+
+  .section--title {
+    @apply relative font-extraBold text-xl sm:text-2xl md:text-3xl;
+  }
+
+  .section--title:before {
+    content: '';
+    @apply absolute my-auto top-0 bottom-0 -right-5 w-2.5 h-10 sm:h-12 bg-blue-700 rounded-sm;
+  }
+
+  /* toast notification start */
+
+  .toast-list {
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    max-width: 85%;
+    z-index: 50;
+  }
+
+  .toast-list .toast {
+    list-style: none;
+    background: #ffffff;
+    padding: 16px 17px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    animation: show 0.3s ease forwards;
+    -webkit-animation: show 0.3s ease forwards;
+    @apply shadow-2xl w-full xs:w-[400px];
+  }
+
+  @keyframes show {
+    0% {
+      transform: translateX(100%);
     }
 
-    .swiper-button-next--custom {
-        @apply left-5;
+    40% {
+      transform: translateX(-5%);
     }
 
-    .swiper-button-prev--custom {
-        @apply right-5;
+    80% {
+      transform: translateX(0%);
     }
 
-    .mobile-menu--items.active {
-        @apply text-gray-900;
+    100% {
+      transform: translateX(-10px);
+    }
+  }
+
+  .toast-list .toast.hide {
+    animation: hide 0.3s ease forwards;
+  }
+
+  @keyframes hide {
+    0% {
+      transform: translateX(-10px);
     }
 
-    .mobile-menu--items.active ul {
-        @apply max-h-max visible opacity-100;
+    40% {
+      transform: translateX(0%);
     }
 
-    .mobile-menu--items.active svg {
-        @apply rotate-180;
+    80% {
+      transform: translateX(-5%);
     }
 
-    .section--title {
-        @apply relative font-extraBold text-xl sm:text-2xl md:text-3xl;
+    100% {
+      transform: translateX(calc(100% + 20px));
     }
+  }
 
-    .section--title:before {
-        content: '';
-        @apply absolute my-auto top-0 bottom-0 -right-5 w-2.5 h-10 sm:h-12 bg-blue-700 rounded-sm;
+  .toast-list .toast::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    animation: load 5s linear forwards;
+  }
+
+  .toast-list .toast.success::before {
+    background-color: #0abf30;
+  }
+
+  .toast-list .toast.info::before {
+    background-color: #3498db;
+  }
+
+  .toast-list .toast.warning::before {
+    background-color: #e9bd0c;
+  }
+
+  .toast-list .toast.error::before {
+    background-color: #e24d4c;
+  }
+
+  @keyframes load {
+    100% {
+      width: 0;
     }
+  }
 
-    /* toast notification start */
+  .toast-list .toast .column {
+    display: flex;
+    align-items: center;
+  }
 
-    .toast-list {
-        position: fixed;
-        top: 30px;
-        right: 20px;
-        max-width: 85%;
-      }
-      
-      .toast-list .toast {
-        list-style: none;
-        background: #ffffff;
-        padding: 16px 17px;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 5px;
-        position: relative;
-        overflow: hidden;
-        animation: show 0.3s ease forwards;
-        -webkit-animation: show 0.3s ease forwards;
-        @apply shadow-2xl w-full xs:w-[400px];
-        }
-      
-      @keyframes show {
-        0% {
-          transform: translateX(100%);
-        }
-      
-        40% {
-          transform: translateX(-5%);
-        }
-      
-        80% {
-          transform: translateX(0%);
-        }
-      
-        100% {
-          transform: translateX(-10px);
-        }
-      }
-      
-      .toast-list .toast.hide {
-        animation: hide 0.3s ease forwards;
-      }
-      
-      @keyframes hide {
-        0% {
-          transform: translateX(-10px);
-        }
-      
-        40% {
-          transform: translateX(0%);
-        }
-      
-        80% {
-          transform: translateX(-5%);
-        }
-      
-        100% {
-          transform: translateX(calc(100% + 20px));
-        }
-      }
-      
-      .toast-list .toast::before {
-        content: "";
-        position: absolute;
-        height: 3px;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        animation: load 5s linear forwards;
-      }
+  .toast-list .toast.success .column {
+    color: #0abf30;
+  }
 
-      .toast-list .toast.success::before {
-        background-color: #0abf30; 
-      }
-      .toast-list .toast.info::before {
-        background-color: #3498db;
-      }
-      .toast-list .toast.warning::before {
-        background-color: #e9bd0c;
-      }
-      .toast-list .toast.error::before {
-        background-color: #e24d4c;
-      }
-      
-      @keyframes load {
-        100% {
-          width: 0;
-        }
-      }
-      
-      .toast-list .toast .column {
-        display: flex;
-        align-items: center;
-      }
-      
-      .toast-list .toast.success .column {
-        color: #0abf30;
-      }
-      .toast-list .toast.info .column {
-        color: #3498db;
-      }
-      .toast-list .toast.warning .column {
-        color: #e9bd0c;
-      }
-      .toast-list .toast.error .column {
-        color: #e24d4c;
-      }
-      
-      .toast-list .toast .column span {
-        font-size: 1.05rem;
-        margin-left: 12px;
-      }
+  .toast-list .toast.info .column {
+    color: #3498db;
+  }
 
-      /* toast notification end */
+  .toast-list .toast.warning .column {
+    color: #e9bd0c;
+  }
 
-      /* upload progress bar */
+  .toast-list .toast.error .column {
+    color: #e24d4c;
+  }
 
-      .upload-progress-bar {
-        @apply w-1/3 ltr h-5 relative;
-      }
+  .toast-list .toast .column span {
+    font-size: 1.05rem;
+    margin-left: 12px;
+  }
 
-      .upload-progress-bar::before {
-        content: attr(data-before);
-        @apply absolute inset-0 w-full h-full flex justify-center items-center text-gray-800 text-sm;
-      }
+  /* toast notification end */
 
-      .upload-progress-bar::-webkit-progress-bar {
-        @apply bg-gray-300;
-      }
+  /* upload progress bar */
 
-      .upload-progress-bar::-webkit-progress-value {
-        @apply bg-green-600;
-      }
+  .upload-progress-bar {
+    @apply w-1/3 ltr h-5 relative;
+  }
 
-      .upload-progress-bar,
-      .upload-progress-bar::-webkit-progress-bar,
-      .upload-progress-bar::-webkit-progress-value {
-        @apply rounded
-      }
+  .upload-progress-bar::before {
+    content: attr(data-before);
+    @apply absolute inset-0 w-full h-full flex justify-center items-center text-gray-800 text-sm;
+  }
+
+  .upload-progress-bar::-webkit-progress-bar {
+    @apply bg-gray-300;
+  }
+
+  .upload-progress-bar::-webkit-progress-value {
+    @apply bg-green-600;
+  }
+
+  .upload-progress-bar,
+  .upload-progress-bar::-webkit-progress-bar,
+  .upload-progress-bar::-webkit-progress-value {
+    @apply rounded
+  }
+
+  /* upload progress bar end */
+
+  table th,
+  table td {
+    @apply py-3;
+  }
+
+
+
+  table td {
+    @apply text-center;
+  }
 }
 
 @layer utilities {
@@ -252,5 +272,11 @@
 
   .hideScrollbar::-webkit-scrollbar {
     @apply hidden;
+  }
+
+  .customBoxShadow {
+    -webkit-box-shadow: 0px 0px 30px -10px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 30px -10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 30px -10px rgba(0, 0, 0, 0.6);
   }
 }
