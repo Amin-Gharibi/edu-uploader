@@ -60,6 +60,10 @@
   body {
     @apply font-regular;
   }
+
+  .ck-editor__editable {
+    min-height: 400px;
+  }
 }
 
 @layer components {

@@ -1,4 +1,5 @@
 import BASE_URL from "../util/BASE_URL.js";
+import { getToken } from "../util/utils.js";
 
 const getLatestNews = async () => {
 	const response = await fetch(`${BASE_URL}/api/news/latest`)
@@ -18,8 +19,49 @@ const getOne = async (id) => {
 	return await response.json()
 }
 
+const getAllNews = async () => {
+	const response = await fetch(`${BASE_URL}/api/news`)
+
+	return await response.json()
+}
+
+const createNews = async (title, body, cover) => {
+	const sendingData = new FormData()
+	sendingData.append('title', title)
+	sendingData.append('body', body)
+	sendingData.append('cover', cover)
+
+	const response = await fetch(`${BASE_URL}/api/news`, {
+		method: 'POST',
+		headers: {
+			'Authorization': `Bearer ${getToken()}`
+		},
+		body: sendingData
+	})
+
+	const data = await response.json()
+
+	return {data, ok: response.ok}
+}
+
+const deleteNews = async (id) => {
+	const response = await fetch(`${BASE_URL}/api/news/${id}`, {
+		method: 'DELETE',
+		headers: {
+			'Authorization': `Bearer ${getToken()}`
+		}
+	})
+
+	const data = await response.json()
+
+	return {data, ok: response.ok}
+}
+
 export {
 	getLatestNews,
 	get15News,
-	getOne
+	getOne,
+	getAllNews,
+	createNews,
+	deleteNews
 }
