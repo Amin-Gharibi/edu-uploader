@@ -63,8 +63,19 @@ const getPanelInfo = async () => {
     return await response.json()
 }
 
+const getMe = async () => {
+    const response = await fetch(`${BASE_URL}/api/auth/me`, {
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    return await response.json()
+}
+
 export {
 	loginHandler,
     registerHandler,
-    getPanelInfo
+    getPanelInfo,
+    getMe
 }

@@ -34,8 +34,53 @@ const getUserUploads = async () => {
     return await response.json()
 }
 
+const editUser = async (username, firstName, lastName, areaName, provinceName) => {
+    const sendingData = {
+        username,
+        firstName,
+        lastName,
+        areaName,
+        provinceName
+    }
+
+    const response = await fetch(`${BASE_URL}/api/user`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendingData)
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
+const editPassword = async (currentPassword, newPassword) => {
+    const sendingData = {
+        currentPassword,
+        newPassword
+    }
+
+    const response = await fetch(`${BASE_URL}/api/user/password`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendingData)
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
 export {
 	getAllUsers,
     deleteUser,
-    getUserUploads
+    getUserUploads,
+    editUser,
+    editPassword
 }

@@ -12,13 +12,24 @@ const getFromLocalStorage = (key) => {
 	return JSON.parse(localStorage.getItem(key))
 }
 
+const removeFromLocalStorage = (key) => {
+	localStorage.removeItem(key)
+}
+
 const getToken = () => {
 	return getFromLocalStorage('user').accessToken
+}
+
+const logOut = () => {
+	removeFromLocalStorage('user')
+	// &&&&&&&&&&&&&&&&&&&&&&&& redirect to login Page
 }
 
 export {
 	toggleMultipleClasses,
 	saveToLocalStorage,
 	getFromLocalStorage,
-	getToken
+	removeFromLocalStorage,
+	getToken,
+	logOut
 }

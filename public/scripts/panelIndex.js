@@ -8,6 +8,7 @@ import { handlePanelHeaderBannerContent } from "./panelHeaderBanner.js"
 import { handlePanelQuickAccessContent } from "./panelQuickAccess.js"
 import { handlePanelWebsiteInfoContent } from "./panelWebsiteInfo.js"
 import { handlePanelFocusedSubjectContent } from "./panelFocusedSubject.js"
+import { handlePanelMeContent } from "./panelMe.js"
 
 document.addEventListener('DOMContentLoaded', async () => {
 	await fetchData()
@@ -341,6 +342,9 @@ const renderPage = async (info) => {
         } else if (value === 'website-info') {
 
             await handlePanelWebsiteInfoContent()
+        } else if (value === 'me') {
+            
+            await handlePanelMeContent()
         }
     }
 

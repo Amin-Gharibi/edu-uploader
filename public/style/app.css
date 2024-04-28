@@ -1191,6 +1191,10 @@ table {
   margin-top: 2rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
