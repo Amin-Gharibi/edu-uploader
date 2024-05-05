@@ -46,9 +46,30 @@ const deleteFocusedSubject = async (id) => {
     return {data, ok: response.ok}
 }
 
+const editFocusedSubject = async (id, title, enTitle) => {
+    const sendingData = {
+        title,
+        enTitle
+    }
+
+    const response = await fetch(`${BASE_URL}/api/focusedSubject/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(sendingData)
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
 export {
 	getOneFocusedSubject,
     getAllFocusedSubjects,
     createFocusedSubject,
-    deleteFocusedSubject
+    deleteFocusedSubject,
+    editFocusedSubject
 }
