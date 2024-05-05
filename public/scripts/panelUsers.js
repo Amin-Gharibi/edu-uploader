@@ -1,6 +1,6 @@
 import { registerHandler } from "./funcs/auth.js"
 import { getAllFocusedSubjects } from "./funcs/focusedSubjects.js"
-import { adminEditingUser, deleteUser, getAllUsers, getOneByAdmin } from "./funcs/user.js"
+import { adminEditingUser, deleteUser, getAllUsers, getOneUserByAdmin } from "./funcs/user.js"
 import { createToast } from "./util/toastNotification.js"
 
 async function handlePanelUserContent () {
@@ -203,14 +203,12 @@ async function handlePanelUserContent () {
         </div>
         `)
 
-        const data = await getOneByAdmin(btn.dataset.value.trim())
+        const data = await getOneUserByAdmin(btn.dataset.value.trim())
 
         const loader = document.querySelector('.load-data-for-edit-loader')
         
         if (data.ok) {
             const user = data.data.user
-
-            console.log(user);
 
             const allUsersSectionContainer = document.querySelector('.all-users-section-container')
             allUsersSectionContainer.classList.add('hidden')
@@ -356,6 +354,13 @@ async function handlePanelUserContent () {
             deleteBtns.forEach(btn => {
                 btn.addEventListener('click', async () => {
                     await deleteHandler(btn)
+                })
+            })
+
+            const editBtns = document.querySelectorAll('.edit-btns')
+            editBtns.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    await editHandler(btn)
                 })
             })
 

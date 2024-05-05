@@ -41,7 +41,7 @@ const createNews = async (title, body, cover) => {
 
 	const data = await response.json()
 
-	return {data, ok: response.ok}
+	return { data, ok: response.ok }
 }
 
 const deleteNews = async (id) => {
@@ -54,7 +54,26 @@ const deleteNews = async (id) => {
 
 	const data = await response.json()
 
-	return {data, ok: response.ok}
+	return { data, ok: response.ok }
+}
+
+const editNews = async (id, title, body, cover) => {
+	const sendingData = new FormData()
+	sendingData.append('title', title)
+	sendingData.append('body', body)
+	sendingData.append('cover', cover)
+
+	const response = await fetch(`${BASE_URL}/api/news/${id}`, {
+		method: 'PUT',
+		headers: {
+			'Authorization': `Bearer ${getToken()}`
+		},
+		body: sendingData
+	})
+
+	const data = await response.json()
+
+	return { data, ok: response.ok }
 }
 
 export {
@@ -63,5 +82,6 @@ export {
 	getOne,
 	getAllNews,
 	createNews,
-	deleteNews
+	deleteNews,
+	editNews
 }

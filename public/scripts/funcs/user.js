@@ -77,7 +77,7 @@ const editPassword = async (currentPassword, newPassword) => {
     return {data, ok: response.ok}
 }
 
-const getOneByAdmin = async (userId) => {
+const getOneUserByAdmin = async (userId) => {
     const response = await fetch(`${BASE_URL}/api/user/${userId}`, {
         headers: {
             'Authorization': `Bearer ${getToken()}`
@@ -122,6 +122,6 @@ export {
     getUserUploads,
     editUser,
     editPassword,
-    getOneByAdmin,
+    getOneUserByAdmin,
     adminEditingUser
 }
