@@ -10,10 +10,9 @@ const fetchData = async () => {
 	try {
 		let newsId = location.href.split('/')
 		newsId = newsId[newsId.length - 1]
-		// for now we simulate the id
 		
 		// fetch data from server
-		const [headerData, news] = await Promise.all([getHeaderData(), getOne('6627f555fa1c774b2d646410')])
+		const [headerData, news] = await Promise.all([getHeaderData(), getOne(newsId)])
 
 		await renderPage(headerData, news)
 	} catch (e) {
@@ -22,7 +21,6 @@ const fetchData = async () => {
 }
 
 const renderPage = async (headerData, news) => {
-	console.log(news);
 	const container = document.querySelector('#content-container')
 
 	const date = (new Date(news.updatedAt)).toLocaleString('fa-IR').split(', ')
@@ -39,7 +37,7 @@ const renderPage = async (headerData, news) => {
 				<div class="mobile-menu--container fixed inset-0 z-[999] w-full h-full flex justify-start items-center bg-black bg-opacity-20 invisible opacity-0 transition-all">
 					<div class="mobile-menu absolute top-0 bottom-0 -right-full z-50 w-64 px-7 pb-16 pt-5 bg-white transition-all">
 						<div class="w-full flex justify-between items-center pb-4 border-b border-gray-100">
-							<img src="${BASE_URL}/logo/${headerData.headerLogo[0].logo}" alt="logo" class="w-12 h-12 rounded">
+							<img src="${BASE_URL}/logo/${headerData?.headerLogo[0]?.logo}" alt="logo" class="w-12 h-12 rounded">
 							<button class="toggle-mobile-menu w-max h-max p-2 flex justify-center items-center">
 								<svg class="w-5 h-5">
 									<use href="#x-mark"></use>
@@ -48,7 +46,7 @@ const renderPage = async (headerData, news) => {
 						</div>
 						<div class="mt-6">
 							<ul>
-								${Array.from(headerData.headerMenus).map(data => {
+								${Array.from(headerData?.headerMenus).map(data => {
 									return `
 										<li class="mobile-menu--items w-full text-sm font-demiBold text-gray-600">
 											<div class="w-full flex justify-between items-center py-2">
@@ -81,13 +79,13 @@ const renderPage = async (headerData, news) => {
 			<!--desktop header-->
     		<div class="flex items-center gap-x-6 lg:gap-x-10 xl:gap-x-16">
     		    <div>
-			    	<a href="${headerData.headerLogo[0].href}">
+			    	<a href="${headerData?.headerLogo[0]?.href}">
 			    		<img src="${BASE_URL}/logo/${headerData.headerLogo[0].logo}" alt="logo" class="w-16 h-16 rounded">
 					</a>				
     		    </div>
     		    <ul class="hidden sm:flex gap-x-10 font-demiBold">
     		    	${
-						Array.from(headerData.headerMenus).map(data => {
+						Array.from(headerData?.headerMenus).map(data => {
 							return `
 								<li class="group relative flex items-center gap-x-2">
 									<a href="${data.href}">${data.title}</a>
@@ -113,7 +111,7 @@ const renderPage = async (headerData, news) => {
 					}
     		    </ul>
     		</div>
-    		<a href="#" type="button"
+    		<a href="${BASE_URL}/login" type="button"
     		        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
     		    <span class="hidden sm:inline">
     		    	ورود ناظر
@@ -127,15 +125,15 @@ const renderPage = async (headerData, news) => {
 			<div class="w-full flex justify-between items-center">
 			     <div class="flex flex-col gap-y-2">
 					<h2 class="font-bold text-sm sm:text-base">
-						نویسنده: ${news.writer.firstName} ${news.writer.lastName}
+						نویسنده: ${news?.writer?.firstName} ${news?.writer?.lastName}
 					</h2>
 					<p class="flex items-center text-xs sm:text-sm text-gray-400 gap-x-1">
 						<svg class="w-4 h-4 sm:w-5 sm:h-5">
 							<use href="#map-pin"></use>
 						</svg>
-						${news.writer.areaName} 
+						${news?.writer?.areaName} 
 						·
-						${news.writer.provinceName}
+						${news?.writer?.provinceName}
 					</p>
 				 </div>
 				 <div class="flex items-center gap-x-1 text-xs sm:text-sm text-gray-600">
@@ -148,9 +146,9 @@ const renderPage = async (headerData, news) => {
 			<img src="${BASE_URL}/news/${news.cover}" class="mt-10 w-full h-[600px] object-cover">
 			<div class="mt-10">
 				<h1 class="font-bold text-lg sm:text-2xl mb-3">
-					${news.title}
+					${news?.title}
 				</h1>
-				${news.body}
+				${news?.body}
 			</div>
 		</main>
 	`

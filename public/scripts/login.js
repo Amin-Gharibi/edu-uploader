@@ -1,12 +1,13 @@
 import { loginHandler } from "./funcs/auth.js"
+import BASE_URL from "./util/BASE_URL.js"
 import { createToast } from "./util/toastNotification.js"
 import { getFromLocalStorage, saveToLocalStorage } from "./util/utils.js"
 
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-	if (getFromLocalStorage('accessToken')) {
-		// ^^^^^^^^^^^^^^^^^ validate token and redirect to panel
+	if (getFromLocalStorage('user')) {
+		location.href = `${BASE_URL}/panel`
 	}
 
 	await fetchData()
@@ -113,8 +114,8 @@ const renderPage = async () => {
 			
 			saveToLocalStorage('user', {accessToken: response.accessToken})
 
-			// ^^^^^^^^^^^^ redirect to panel
-		} else if (response.status === 401) {
+			location.href = `${BASE_URL}/panel`
+		} else if (response.status === 401 || response.status === 404) {
 			submitBtn.innerHTML = `
 				<span class="inline">
 					ورود

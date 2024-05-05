@@ -21,6 +21,7 @@ async function handlePanelUploadsContent (info) {
                             <th>آموزشگاه</th>
                             <th>جنسیت</th>
                             <th>نوع مدرسه</th>
+                            <th>منطقه</th>
                             <th>محور پروژه</th>
                             <th>افراد حاضر در پروژه</th>
                             <th>نمونه برگ ها</th>
@@ -34,6 +35,7 @@ async function handlePanelUploadsContent (info) {
                                     <td>${upload.schoolName}</td>
                                     <td>${upload.schoolGender === 'MALE' ? 'پسرانه' : 'دخترانه'}</td>
                                     <td>${upload.schoolType === 'PUBLIC' ? 'عادی' : 'خاص'}</td>
+                                    <td>${upload.schoolArea}</td>
                                     <td>${upload.focusedSubject.title}</td>
                                     <td>
                                         <select>
@@ -52,12 +54,12 @@ async function handlePanelUploadsContent (info) {
                                                     <use href="#chevron-down"></use>
                                                 </svg>
                                             </span>
-                                            <div class="hidden group-hover:flex flex-col absolute top-full left-0 right-0 w-full p-2 bg-white z-10 border border-gray-400 rounded cursor-pointer shadow-2xl">
-                                                ${upload.examplePages.map((examplePage, index) => {
+                                            <div class="hidden group-hover:flex flex-col absolute top-full left-0 right-0 w-full p-2 bg-white z-10 border border-gray-400 rounded shadow-2xl">
+                                                ${upload.examplePages.length && upload.examplePages.map((examplePage, index) => {
             return `
-                                                        <a class="text-sm" href="${BASE_URL}/uploadedFiles/${examplePage}">نمونه برگ ${(index + 1).toLocaleString('fa-IR')}</a>
+                                                        <a class="text-sm cursor-pointer" href="${BASE_URL}/uploadedFiles/${examplePage}">نمونه برگ ${(index + 1).toLocaleString('fa-IR')}</a>
                                                     `
-        })}
+        }) || 'ندارد...'}
                                             </div>
                                         </div>
                                     </td>

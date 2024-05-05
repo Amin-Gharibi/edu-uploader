@@ -72,9 +72,7 @@ async function handlePanelQuickAccessContent () {
                                     </tr>
                                 `
     }).join('') || `
-                                <div class="w-full p-3 flex justify-center items-center">
-                                    نتیجه ای یافت نشد...
-                                </div>
+                                
                             `}
                         </tbody>
                     </table>

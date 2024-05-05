@@ -1,3 +1,5 @@
+import BASE_URL from "./BASE_URL.js"
+
 const toggleMultipleClasses = (elem, ...args) => {
 	args.forEach(c => {
 		elem.classList.toggle(c)
@@ -22,7 +24,7 @@ const getToken = () => {
 
 const logOut = () => {
 	removeFromLocalStorage('user')
-	// &&&&&&&&&&&&&&&&&&&&&&&& redirect to login Page
+	location.href = BASE_URL
 }
 
 export {

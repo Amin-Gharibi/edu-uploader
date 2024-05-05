@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>پیدا نشد!</title>
+    <link rel="stylesheet" href="/style/app.css">
+</head>
+<body>
+<svg class="hidden">
+    <symbol id="arrow-left" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.99953 13.78C9.87286 13.78 9.7462 13.7333 9.6462 13.6333L5.29953 9.28668C4.59286 8.58001 4.59286 7.42001 5.29953 6.71335L9.6462 2.36668C9.83953 2.17335 10.1595 2.17335 10.3529 2.36668C10.5462 2.56001 10.5462 2.88001 10.3529 3.07335L6.0062 7.42001C5.6862 7.74001 5.6862 8.26001 6.0062 8.58001L10.3529 12.9267C10.5462 13.12 10.5462 13.44 10.3529 13.6333C10.2529 13.7267 10.1262 13.78 9.99953 13.78Z"/>
+    </symbol>
+</svg>
+    <main class="container flex flex-col items-center text-center">
+        <img src="/img/404-sm.png" alt="404-img" class="sm:hidden">
+        <img src="/img/404-lg.png" alt="404-img" class="max-sm:hidden h-96">
+        <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[140%] text-gray-700 mt-10">
+            صفحه ای که میخواستی اینجا نیست!
+        </h1>
+        <p class="text-base sm:text-lg leading-[180%] text-gray-600 mt-6">
+            برای پیدا کردن مسیر درست میتونی سری به صفحه اول بزنی.
+        </p>
+        <a class="return-to-main-page--link flex gap-x-4 items-center mt-9 text-sm sm:text-base">
+            برگشت به صفحه اصلی
+            <svg class="w-4 h-4">
+                <use href="#arrow-left"></use>
+            </svg>
+        </a>
+    </main>
+
+    <script src="./scripts/404.js" type="module"></script>
+</body>
+</html>

@@ -9,8 +9,14 @@ import { handlePanelQuickAccessContent } from "./panelQuickAccess.js"
 import { handlePanelWebsiteInfoContent } from "./panelWebsiteInfo.js"
 import { handlePanelFocusedSubjectContent } from "./panelFocusedSubject.js"
 import { handlePanelMeContent } from "./panelMe.js"
+import { getFromLocalStorage, logOut, removeFromLocalStorage } from "./util/utils.js"
 
 document.addEventListener('DOMContentLoaded', async () => {
+    if (!getFromLocalStorage('user')) {
+        location.href = `${BASE_URL}/login`
+        return 
+    }
+
 	await fetchData()
 })
 
@@ -21,6 +27,8 @@ const fetchData = async () => {
 
 		await renderPage(info)
 	} catch (e) {
+        removeFromLocalStorage('user')
+        location.href = `${BASE_URL}/login`
 		console.log('ERROR HANDLER: ', e)
 	}
 }
@@ -28,13 +36,13 @@ const fetchData = async () => {
 const renderPage = async (info) => {
 	const container = document.querySelector('#content-container')
 
-	container.innerHTML = `
+    container.innerHTML = `
         <div class="relative flex w-full min-h-full h-max">
             <div class="menu absolute z-[100] sm:sticky top-0 bottom-0 -right-full sm:right-0 h-screen overflow-hidden w-56 sm:min-w-44 md:min-w-52 md:w-64 xl:w-80 bg-gray-800 p-4 transition-all">
                 <div class="flex justify-between sm:justify-center items-center w-full">
                     <div class="w-14 h-14">
-                        <a href=${info.headerLogo[0].href}>
-                            <img src="${BASE_URL}/logo/${info.headerLogo[0].logo}">
+                        <a href=${info?.headerLogo[0]?.href}>
+                            <img src="${BASE_URL}/logo/${info?.headerLogo[0]?.logo}">
                         </a>
                     </div>
                     <button class="toggle-mobile-menu sm:hidden p-1">
@@ -87,6 +95,10 @@ const renderPage = async (info) => {
                         <span class="hidden group-[.active]:block absolute top-0 bottom-0 left-5 my-auto w-2 h-2 rounded bg-gray-400"></span>
                     </li>
                     ` || ''}
+                    <li data-value="log-out" class="nav-menu--links w-full relative p-2 hover:text-gray-300 border border-transparent hover:border-gray-300 rounded [&.active]:border-gray-300 [&.active]:text-gray-300 group cursor-pointer transition-colors">
+                        خروج
+                        <span class="hidden group-[.active]:block absolute top-0 bottom-0 left-5 my-auto w-2 h-2 rounded bg-gray-400"></span>
+                    </li>
                 </ul>
             </div>
             <div class="flex-grow flex flex-col p-10">
@@ -345,6 +357,10 @@ const renderPage = async (info) => {
         } else if (value === 'me') {
             
             await handlePanelMeContent()
+        } else if (value === 'log-out') {
+
+            logOut()
+
         }
     }
 

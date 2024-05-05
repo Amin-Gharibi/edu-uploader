@@ -6,9 +6,7 @@ import { createToast } from "./util/toastNotification.js";
 
 const getTargetFocusedSubjectsName = async () => {
 	const path = location.pathname.split('/')
-	// real One => path[path.length - 1]
-	// for test we use "test"
-	const targetFocusedSubject = await getOneFocusedSubject("testt")
+	const targetFocusedSubject = await getOneFocusedSubject(path[path.length - 1])
 
 	return targetFocusedSubject.title
 }
@@ -117,7 +115,7 @@ const renderPage = async (headerData, focusedSubjectName) => {
 					}
     		    </ul>
     		</div>
-    		<a href="#" type="button"
+    		<a href="${BASE_URL}/login" type="button"
     		        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-xs md:text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
     		    <span class="hidden sm:inline">
     		    	ورود ناظر
@@ -189,6 +187,15 @@ const renderPage = async (headerData, focusedSubjectName) => {
 								</option>
 							</select>
 						</div>
+						<div class="flex flex-col gap-y-2">
+							<span class="text-xs md:text-sm text-gray-600">
+								منطقه:
+								<span class="text-red-600">
+									*
+								</span>
+							</span>
+							<input id="school-area" type="text" placeholder="نام منطقه آموزشگاه..." class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+						</div>
 					</div>
 				</div>
 
@@ -229,11 +236,8 @@ const renderPage = async (headerData, focusedSubjectName) => {
 						<div class="flex flex-col gap-y-2">
 							<span class="text-xs md:text-sm text-gray-600">
 								فایل نمونه برگ:
-								<span class="text-red-600">
-									*
-								</span>
 							</span>
-							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+							<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base">
 						</div>
 					</div>
 					<button type="button" id="add-new-example-page-input" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 disabled:opacity-50 disabled:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-xs md:text-sm px-5 py-2.5 focus:outline-none">
@@ -304,11 +308,8 @@ const renderPage = async (headerData, focusedSubjectName) => {
 			<div class="flex flex-col gap-y-2">
 				<span class="text-xs md:text-sm text-gray-600">
 					فایل نمونه برگ:
-					<span class="text-red-600">
-						*
-					</span>
 				</span>
-				<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base" required>
+				<input type="file" class="h-full p-2 border border-gray-300 outline-0 focus-within:border-gray-500 transition-colors focus-within:placeholder-gray-700 rounded text-sm md:text-base">
 			</div>
 		</div>
 		`)
@@ -344,20 +345,25 @@ const renderPage = async (headerData, focusedSubjectName) => {
 			progressBar.value = 0
 			progressBar.dataset.before = '0%'
 		}
+
+		const path = location.pathname.split('/')
+		const focusedSubject = await getOneFocusedSubject(path[path.length - 1])
 		
 		const schoolNameInput = document.querySelector('#school-name')
 		const schoolTypeInput = document.querySelector('#school-type')
 		const schoolGenderInput = document.querySelector('#school-gender')
+		const schoolAreaInput = document.querySelector('#school-area')
 		const participantsContainers = document.querySelectorAll('.participant-info-container')
 		const examplePagesContainers = document.querySelectorAll('.example-page-container')
 		const fileInput = document.querySelector('#file-input')
 
 		const sendingData = new FormData()
 
-		sendingData.append("focusedSubject", "6628e2966596378dac53c09b"),
-		sendingData.append("schoolName", schoolNameInput.value.trim()),
-		sendingData.append("schoolType", schoolTypeInput.value.trim()),
-		sendingData.append("schoolGender", schoolGenderInput.value.trim()),
+		sendingData.append("focusedSubject", focusedSubject._id)
+		sendingData.append("schoolName", schoolNameInput.value.trim())
+		sendingData.append("schoolType", schoolTypeInput.value.trim())
+		sendingData.append("schoolGender", schoolGenderInput.value.trim())
+		sendingData.append("schoolArea", schoolAreaInput.value.trim())
 		sendingData.append("file", fileInput.files[0])
 
 		let firstNameInput;
@@ -374,7 +380,9 @@ const renderPage = async (headerData, focusedSubjectName) => {
 		examplePagesContainers.forEach((container) => {
 			examplePage = container.querySelector('input')
 
-			sendingData.append(`examplePages`, examplePage.files[0])
+			if (examplePage.files[0]) {
+				sendingData.append(`examplePages`, examplePage.files[0])
+			}
 		})
 
 		const result = await createUpload(sendingData, progressBar)

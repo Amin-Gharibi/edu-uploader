@@ -33,7 +33,7 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 				<div class="mobile-menu--container fixed inset-0 z-[999] w-full h-full flex justify-start items-center bg-black bg-opacity-20 invisible opacity-0 transition-all">
 					<div class="mobile-menu absolute top-0 bottom-0 -right-full z-50 w-64 px-7 pb-16 pt-5 bg-white transition-all">
 						<div class="w-full flex justify-between items-center pb-4 border-b border-gray-100">
-							<img src="${BASE_URL}/logo/${headerData.headerLogo[0].logo}" alt="logo" class="w-12 h-12 rounded">
+							<img src="${BASE_URL}/logo/${headerData?.headerLogo[0]?.logo}" alt="logo" class="w-12 h-12 rounded">
 							<button class="toggle-mobile-menu w-max h-max p-2 flex justify-center items-center">
 								<svg class="w-5 h-5">
 									<use href="#x-mark"></use>
@@ -42,7 +42,7 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 						</div>
 						<div class="mt-6">
 							<ul>
-								${Array.from(headerData.headerMenus).map(data => {
+								${Array.from(headerData?.headerMenus).map(data => {
 									return `
 										<li class="mobile-menu--items w-full text-sm font-demiBold text-gray-600">
 											<div class="w-full flex justify-between items-center py-2">
@@ -75,13 +75,13 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 			<!--desktop header-->
     		<div class="flex items-center gap-x-6 lg:gap-x-10 xl:gap-x-16">
     		    <div>
-			    	<a href="${headerData.headerLogo[0].href}">
-			    		<img src="${BASE_URL}/logo/${headerData.headerLogo[0].logo}" alt="logo" class="w-16 h-16 rounded">
+			    	<a href="${headerData?.headerLogo[0]?.href}">
+			    		<img src="${BASE_URL}/logo/${headerData?.headerLogo[0]?.logo}" alt="logo" class="w-16 h-16 rounded">
 					</a>				
     		    </div>
     		    <ul class="hidden sm:flex gap-x-10 font-demiBold">
     		    	${
-						Array.from(headerData.headerMenus).map(data => {
+						Array.from(headerData?.headerMenus).map(data => {
 							return `
 								<li class="group relative flex items-center gap-x-2">
 									<a href="${data.href}">${data.title}</a>
@@ -107,7 +107,7 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 					}
     		    </ul>
     		</div>
-    		<a href="#" type="button"
+    		<a href="${BASE_URL}/login" type="button"
     		        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded sm:rounded-lg text-sm p-2 sm:px-5 sm:py-2.5 focus:outline-none">
     		    <span class="hidden sm:inline">
     		    	ورود ناظر
@@ -122,7 +122,7 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 			<div class="swiper mySwiper">
     			<div class="swiper-wrapper">
     				${
-						Array.from(headerData.headerBanners).map(data => {
+						Array.from(headerData?.headerBanners).map(data => {
 							return `
 								<div class="swiper-slide !max-w-[1540px] mx-auto">
 									<a href="${data.href}">
@@ -155,14 +155,14 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 						آخرین آخبار
 					</h1>
 					<div class="md:max-w-full w-full mt-8">
-						${!latestNews.length && `
+						${!latestNews?.length && `
 							<h2 class="text-center mt-8 font-medium">
 								خبری یافت نشد...!
 							</h2>
 						` || `
 							<div class="flex flex-col gap-y-5">
 								${
-									latestNews.map(news => {
+									latestNews?.map(news => {
 										return `
 											<div class="w-full overflow-hidden rounded flex gap-x-3 border border-gray-200">
 												<img src="${BASE_URL}/news/${news.cover}" alt="news cover" class="hidden sm:block w-32 md:w-36 object-cover">
@@ -171,14 +171,14 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 														${news.title}
 													</h2>
 													<p class="line-clamp-2 flex-grow pl-4 text-sm md:text-base">${news.body}</p>
-													<button class="self-end flex items-center ml-2 px-2 text-orange-400 gap-x-2">
+													<a href="${BASE_URL}/news/${news._id}" class="self-end flex items-center ml-2 px-2 text-orange-400 gap-x-2">
 														<span class="text-sm sm:text-base">
 															ادامه مطلب
 														</span>
 														<svg class="w-4 h-4">
 															<use href="#arrow-left"></use>
 														</svg>
-													</button>
+													</a>
 												</div>
 											</div>
 										`
@@ -193,7 +193,7 @@ const renderPage = async (headerData, latestNews, sidebarMenus) => {
 						دسترسی سریع
 					</h1>
 					<ul class="mr-5 mt-8 border border-gray-200 rounded py-3 px-5 space-y-4">
-						${sidebarMenus.length && sidebarMenus.map(menu => {
+						${sidebarMenus?.length && sidebarMenus?.map(menu => {
 							return `
 								<li class="w-full flex gap-x-2 items-center">
 									<span class="w-2 h-2 rounded-full bg-orange-500"></span>
