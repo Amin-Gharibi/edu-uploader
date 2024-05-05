@@ -12,10 +12,10 @@ import { handlePanelMeContent } from "./panelMe.js"
 import { getFromLocalStorage, logOut, removeFromLocalStorage } from "./util/utils.js"
 
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!getFromLocalStorage('user')) {
-        location.href = `${BASE_URL}/login`
-        return 
-    }
+    // if (!getFromLocalStorage('user')) {
+    //     location.href = `${BASE_URL}/login`
+    //     return 
+    // }
 
 	await fetchData()
 })
@@ -27,8 +27,8 @@ const fetchData = async () => {
 
 		await renderPage(info)
 	} catch (e) {
-        removeFromLocalStorage('user')
-        location.href = `${BASE_URL}/login`
+        // removeFromLocalStorage('user')
+        // location.href = `${BASE_URL}/login`
 		console.log('ERROR HANDLER: ', e)
 	}
 }
@@ -225,11 +225,11 @@ const renderPage = async (info) => {
                                                         </svg>
                                                     </span>
                                                     <div class="hidden group-hover:flex flex-col absolute top-full left-0 right-0 w-full p-2 bg-white z-10 border border-gray-400 rounded cursor-pointer shadow-2xl">
-                                                        ${upload.examplePages.map((examplePage, index) => {
+                                                        ${upload.examplePages.length && upload.examplePages.map((examplePage, index) => {
                                                             return `
                                                                 <a class="text-sm" href="${BASE_URL}/uploadedFiles/${examplePage}">نمونه برگ ${(index + 1).toLocaleString('fa-IR')}</a>
                                                             `
-                                                        })}
+                                                        }) || 'ندارد...'}
                                                     </div>
                                                 </div>
                                             </td>

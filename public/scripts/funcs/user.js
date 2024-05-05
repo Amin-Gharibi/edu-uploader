@@ -77,10 +77,51 @@ const editPassword = async (currentPassword, newPassword) => {
     return {data, ok: response.ok}
 }
 
+const getOneByAdmin = async (userId) => {
+    const response = await fetch(`${BASE_URL}/api/user/${userId}`, {
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
+const adminEditingUser = async (id, username, password, firstName, lastName, areaName, provinceName, role, focusedSubject) => {
+    const sendingData = {
+        id: id,
+        username: username || undefined,
+        password: password || undefined,
+        firstName: firstName || undefined,
+        lastName: lastName || undefined,
+        areaName: areaName || undefined,
+        provinceName: provinceName || undefined,
+        role: role || undefined,
+        focusedSubject: focusedSubject || undefined
+    }
+
+    const response = await fetch(`${BASE_URL}/api/user`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendingData)
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
 export {
 	getAllUsers,
     deleteUser,
     getUserUploads,
     editUser,
-    editPassword
+    editPassword,
+    getOneByAdmin,
+    adminEditingUser
 }

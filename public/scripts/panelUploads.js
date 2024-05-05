@@ -4,6 +4,8 @@ import BASE_URL from "./util/BASE_URL.js"
 async function handlePanelUploadsContent (info) {
     const [userUploads] = await Promise.all([getUserUploads()])
 
+    console.log(userUploads);
+
     const dynamicContentContainer = document.querySelector('.dynamic-content-container')
     dynamicContentContainer.innerHTML = `
             <div class="max-w-[330px] xs:max-w-[390px] md:max-w-[490px] lg:max-w-[700px] xl:max-w-max overflow-hidden mt-12 ruonded p-5 customBoxShadow flex flex-col gap-y-6">
