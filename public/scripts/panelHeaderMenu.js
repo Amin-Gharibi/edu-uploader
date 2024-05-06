@@ -327,7 +327,7 @@ async function handlePanelHeaderMenuContent () {
     }
 
     const submitBtn = document.querySelector('button[type="submit"]')
-    submitBtn.addEventListener('submit', async event => {
+    submitBtn.addEventListener('click', async event => {
         event.preventDefault()
 
         submitBtn.innerHTML = `
@@ -346,14 +346,14 @@ async function handlePanelHeaderMenuContent () {
 
         if (data.ok) {
             let addSubMenusStatus = true
-            sendingSubmenus.forEach(async subMenu => {
+            await Promise.all(sendingSubmenus.map(async subMenu => {
                 if (addSubMenusStatus) {
-                    const subMenuData = await createHeaderSubMenu(subMenu.title, subMenu.href, data.data.headerMenu._id)
+                    const subMenuData = await createHeaderSubMenu(subMenu.sendingDetails.title, subMenu.sendingDetails.href, data.data.headerMenu._id)
                     if (!subMenuData.ok) {
                         addSubMenusStatus = false
                     }
                 }
-            })
+            }))
 
             if (addSubMenusStatus) {
                 createToast("success", "منو هدر با موفقیت ایجاد شد")
@@ -404,6 +404,11 @@ async function handlePanelHeaderMenuContent () {
                         await deleteHandler(btn)
                     })
                 })
+            } else {
+                createToast('error', 'خطایی در ساخت منو رخ داد')
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
             }
 
         } else {
