@@ -32,7 +32,21 @@ const createHeaderSubMenu = async (title, href, parent) => {
     return {data, ok: response.ok}
 }
 
+const deleteHeaderSubMenu = async (id) => {
+    const response = await fetch(`${BASE_URL}/api/headerSubMenu/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        }
+    })
+
+    const data = await response.json()
+
+    return {data, ok: response.ok}
+}
+
 export {
 	getAllHeaderSubMenus,
-    createHeaderSubMenu
+    createHeaderSubMenu,
+    deleteHeaderSubMenu
 }
