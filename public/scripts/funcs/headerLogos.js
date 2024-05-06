@@ -9,8 +9,8 @@ const getHeaderLogo = async () => {
 
 const editHeaderLogo = async (href, logo) => {
 	const sendingData = new FormData()
-	sendingData.append('href', href)
-	sendingData.append('logo', logo)
+	sendingData.append('href', href || undefined)
+	sendingData.append('logo', logo || undefined)
 
 	const response = await fetch(`${BASE_URL}/api/headerLogo`, {
 		method: 'POST',

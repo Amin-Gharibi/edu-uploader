@@ -53,9 +53,9 @@ const deleteHeaderBanner = async (id) => {
 
 const editHeaderBanner = async (id, title, href, cover) => {
 	const sendingData = new FormData()
-	sendingData.append('title', title)
-	sendingData.append('href', href)
-	sendingData.append('cover', cover)
+	sendingData.append('title', title || undefined)
+	sendingData.append('href', href || undefined)
+	sendingData.append('cover', cover || undefined)
 
 	const response = await fetch(`${BASE_URL}/api/headerBanner/${id}`, {
 		method: 'PUT',

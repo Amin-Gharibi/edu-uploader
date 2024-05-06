@@ -70,8 +70,8 @@ const editHeaderMenu = async (id, title, href, subMenusToBeDeleted, subMenusToBe
 		}))
 
 		const sendingData = {
-			title,
-			href
+			title: title || undefined,
+			href: href || undefined
 		}
 
 		const response = await fetch(`${BASE_URL}/api/headerMenu/${id}`, {

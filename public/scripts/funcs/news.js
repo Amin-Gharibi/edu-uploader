@@ -59,9 +59,9 @@ const deleteNews = async (id) => {
 
 const editNews = async (id, title, body, cover) => {
 	const sendingData = new FormData()
-	sendingData.append('title', title)
-	sendingData.append('body', body)
-	sendingData.append('cover', cover)
+	sendingData.append('title', title || undefined)
+	sendingData.append('body', body || undefined)
+	sendingData.append('cover', cover || undefined)
 
 	const response = await fetch(`${BASE_URL}/api/news/${id}`, {
 		method: 'PUT',

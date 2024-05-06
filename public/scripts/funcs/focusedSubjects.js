@@ -48,8 +48,8 @@ const deleteFocusedSubject = async (id) => {
 
 const editFocusedSubject = async (id, title, enTitle) => {
     const sendingData = {
-        title,
-        enTitle
+        title: title || undefined,
+        enTitle: enTitle || undefined
     }
 
     const response = await fetch(`${BASE_URL}/api/focusedSubject/${id}`, {
